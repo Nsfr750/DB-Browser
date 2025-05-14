@@ -10,3 +10,4 @@
 
 # External Dependencies:
 pyodbc>=4.0.39  # For MS Access/Jet DB support
+# json is part of Python's standard library and does not require installation
