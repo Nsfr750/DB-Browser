@@ -1,0 +1,9 @@
+# These are part of Python's standard library
+# No additional installation required
+# Python 3.x required
+
+# Standard Library Dependencies:
+# - tkinter (GUI framework)
+# - sqlite3 (Database operations)
+# - webbrowser (For sponsor links)
+# - csv (For data export)
