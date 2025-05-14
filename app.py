@@ -4,6 +4,8 @@ import sqlite3
 import pyodbc
 import csv
 import os
+import json  # For MVO database support
+from mvo_db import MVOConnection, MVOError  # MVO database handler
 
 class SQLiteApp:
     def __init__(self, root):
@@ -12,7 +14,7 @@ class SQLiteApp:
         self.create_widgets()
         self.conn = None
         self.current_table = None
-        self.db_type = None  # 'sqlite' or 'jet'
+        self.db_type = None  # 'sqlite', 'jet', or 'mvo'
 
     def ask_table_selection(self, tables):
         dialog = tk.Toplevel(self.root)
@@ -85,8 +87,9 @@ class SQLiteApp:
         try:
             db_path = filedialog.askopenfilename(
                 title='Open Database',
-                filetypes=[('All Databases', '*.db;*.mdb;*.accdb'), ('SQLite Database', '*.db'),
-                          ('MS Access Database', '*.mdb;*.accdb'), ('All Files', '*.*')]
+                filetypes=[('All Databases', '*.db;*.mdb;*.accdb;*.mvo'), ('SQLite Database', '*.db'),
+                          ('MS Access Database', '*.mdb;*.accdb'), ('MVO Database', '*.mvo'),
+                          ('All Files', '*.*')]
             )
             
             if not db_path:
@@ -94,6 +97,12 @@ class SQLiteApp:
                 
             self.load_database(db_path)
             
+        except sqlite3.Error as e:
+            messagebox.showerror('SQLite Error', str(e))
+        except pyodbc.Error as e:
+            messagebox.showerror('Access Database Error', str(e))
+        except MVOError as e:
+            messagebox.showerror('MVO Database Error', str(e))
         except Exception as e:
             messagebox.showerror('Error', f'Error opening database: {str(e)}')
     
@@ -102,9 +111,11 @@ class SQLiteApp:
         if self.db_type == 'sqlite':
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
             return [table[0] for table in cursor.fetchall()]
-        else:  # jet
+        elif self.db_type == 'jet':
             tables = [table[2] for table in cursor.tables(tableType='TABLE')]
             return [table for table in tables if not table.startswith('MSys')]
+        else:  # mvo
+            return self.conn.get_tables()
 
     def load_database(self, db_path):
         try:
@@ -121,6 +132,9 @@ class SQLiteApp:
                 self.db_type = 'jet'
                 conn_str = f'Driver={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={db_path}'
                 self.conn = pyodbc.connect(conn_str)
+            elif ext == '.mvo':
+                self.db_type = 'mvo'
+                self.conn = MVOConnection(db_path)
             else:
                 raise ValueError('Unsupported database format')
                 
@@ -207,7 +221,11 @@ class SQLiteApp:
             messagebox.showinfo('Success', f'Data exported to {os.path.basename(file_path)}')
         
         except sqlite3.Error as e:
-            messagebox.showerror('Database Error', str(e))
+            messagebox.showerror('SQLite Error', str(e))
+        except pyodbc.Error as e:
+            messagebox.showerror('Access Database Error', str(e))
+        except MVOError as e:
+            messagebox.showerror('MVO Database Error', str(e))
         except IOError as e:
             messagebox.showerror('File Error', f'Error writing to CSV file: {str(e)}')
             writer.writerow(['Column1', 'Column2', 'Column3'])  # Adjust column names
@@ -229,7 +247,7 @@ class SQLiteApp:
         version = ttk.Label(about_dialog, text='Version 1.0')
         version.pack()
 
-        description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite and Access (Jet DB) databases.', justify=tk.CENTER)
+        description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite, Access (Jet DB), and MVO databases.', justify=tk.CENTER)
         description.pack(pady=20)
 
         copyright = ttk.Label(about_dialog, text='© 2025 Nsfr750')
