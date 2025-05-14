@@ -223,7 +223,7 @@ class SQLiteApp:
         about_dialog.grab_set()
 
         # Add app icon or logo here if you have one
-        title = ttk.Label(about_dialog, text='SQLite Database Browser', font=('Helvetica', 16, 'bold'))
+        title = ttk.Label(about_dialog, text='Database Browser', font=('Helvetica', 16, 'bold'))
         title.pack(pady=20)
 
         version = ttk.Label(about_dialog, text='Version 1.0')
