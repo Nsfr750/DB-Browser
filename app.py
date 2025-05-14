@@ -217,7 +217,7 @@ class SQLiteApp:
 
     def show_about(self):
         about_dialog = tk.Toplevel(self.root)
-        about_dialog.title('About SQLite Database Browser')
+        about_dialog.title('About Database Browser')
         about_dialog.geometry('400x300')
         about_dialog.transient(self.root)
         about_dialog.grab_set()
