@@ -1,16 +1,18 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import sqlite3
+import pyodbc
 import csv
 import os
 
 class SQLiteApp:
     def __init__(self, root):
         self.root = root
-        self.root.title('SQLite Database Browser')
+        self.root.title('Database Browser')
         self.create_widgets()
         self.conn = None
         self.current_table = None
+        self.db_type = None  # 'sqlite' or 'jet'
 
     def ask_table_selection(self, tables):
         dialog = tk.Toplevel(self.root)
@@ -82,8 +84,9 @@ class SQLiteApp:
     def open_database(self):
         try:
             db_path = filedialog.askopenfilename(
-                title='Open SQLite Database',
-                filetypes=[('SQLite Database', '*.db'), ('All Files', '*.*')]
+                title='Open Database',
+                filetypes=[('All Databases', '*.db;*.mdb;*.accdb'), ('SQLite Database', '*.db'),
+                          ('MS Access Database', '*.mdb;*.accdb'), ('All Files', '*.*')]
             )
             
             if not db_path:
@@ -96,17 +99,32 @@ class SQLiteApp:
     
     def get_tables(self):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        return [table[0] for table in cursor.fetchall()]
+        if self.db_type == 'sqlite':
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            return [table[0] for table in cursor.fetchall()]
+        else:  # jet
+            tables = [table[2] for table in cursor.tables(tableType='TABLE')]
+            return [table for table in tables if not table.startswith('MSys')]
 
     def load_database(self, db_path):
         try:
-            # Connect to SQLite database
+            # Close existing connection if any
             if self.conn:
                 self.conn.close()
                 
-            self.root.title(f'SQLite Database Browser - {os.path.basename(db_path)}')
-            self.conn = sqlite3.connect(db_path)
+            # Determine database type from extension
+            ext = os.path.splitext(db_path)[1].lower()
+            if ext == '.db':
+                self.db_type = 'sqlite'
+                self.conn = sqlite3.connect(db_path)
+            elif ext in ['.mdb', '.accdb']:
+                self.db_type = 'jet'
+                conn_str = f'Driver={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={db_path}'
+                self.conn = pyodbc.connect(conn_str)
+            else:
+                raise ValueError('Unsupported database format')
+                
+            self.root.title(f'Database Browser - {os.path.basename(db_path)}')
             
             # Get list of tables
             tables = self.get_tables()
