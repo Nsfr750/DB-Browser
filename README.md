@@ -1,10 +1,10 @@
-# SQLite Database Browser
+# Database Browser
 
-A Python-based GUI application for browsing and exporting SQLite database files. This application allows users to open any SQLite database file, view its contents in a table format, and export the data to CSV files.
+A Python-based GUI application for browsing and exporting database files. This application supports both SQLite and Microsoft Access (Jet DB) databases, allowing users to view contents in a table format and export data to CSV files.
 
 ## Features
 
-- Open and browse any SQLite database file
+- Open and browse SQLite (.db) and Microsoft Access (.mdb, .accdb) database files
 - Support for multiple tables within a database
 - Interactive table selection for databases with multiple tables
 - Data displayed in a scrollable table view with column headers
@@ -16,18 +16,26 @@ A Python-based GUI application for browsing and exporting SQLite database files.
 
 ## Requirements
 
-All dependencies are part of Python's standard library:
+### Core Requirements
 - Python 3.x
-- tkinter (GUI framework)
-- sqlite3 (Database operations)
-- webbrowser (Sponsor links)
-- csv (Data export)
+- tkinter (GUI framework, part of Python)
+- sqlite3 (SQLite operations, part of Python)
+- csv (Data export, part of Python)
+- webbrowser (Sponsor links, part of Python)
+
+### Additional Requirements for Access Databases
+- pyodbc>=4.0.39 (for Access/Jet DB support)
+- Microsoft Access Database Engine (required for .mdb/.accdb files)
 
 ## Installation
 
 1. Clone or download this repository
 2. Ensure you have Python 3.x installed
-3. No additional package installation is required
+3. Install required packages:
+```bash
+pip install -r requirements.txt
+```
+4. For Access database support, install the [Microsoft Access Database Engine](https://www.microsoft.com/en-us/download/details.aspx?id=54920)
 
 ## Usage
 
@@ -55,7 +63,10 @@ python main.py
 ## Features in Detail
 
 ### Database Operations
-- Open any SQLite database file (*.db)
+- Support for multiple database formats:
+  - SQLite databases (*.db)
+  - Microsoft Access databases (*.mdb, *.accdb)
+- Automatic database type detection
 - Automatic table detection
 - Support for multiple tables
 - Safe database connection handling
