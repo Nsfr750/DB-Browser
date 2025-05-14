@@ -229,7 +229,7 @@ class SQLiteApp:
         version = ttk.Label(about_dialog, text='Version 1.0')
         version.pack()
 
-        description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite databases.', justify=tk.CENTER)
+        description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite and Access (Jet DB) databases.', justify=tk.CENTER)
         description.pack(pady=20)
 
         copyright = ttk.Label(about_dialog, text='© 2025 Nsfr750')
