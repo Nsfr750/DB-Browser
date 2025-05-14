@@ -3,7 +3,7 @@ import tkinter as tk
 
 def main():
     root = tk.Tk()
-    root.title('SQLite Database Browser')
+    root.title('Database Browser')
     root.geometry('800x600')  # Set initial window size
     
     app = SQLiteApp(root)
