@@ -7,3 +7,6 @@
 # - sqlite3 (Database operations)
 # - webbrowser (For sponsor links)
 # - csv (For data export)
+
+# External Dependencies:
+pyodbc>=4.0.39  # For MS Access/Jet DB support
