@@ -1,6 +1,7 @@
 from app import SQLiteApp
 import tkinter as tk
 from version import get_version, get_version_info
+from sponsor import Sponsor
 
 def main():
     root = tk.Tk()
@@ -8,7 +9,12 @@ def main():
     root.title(f'Database Browser v{version_info["full_version"]}')
     root.geometry('800x600')  # Set initial window size
     
-    app = SQLiteApp(root)
+    # Initialize Sponsor
+    sponsor = Sponsor(root)
+    
+    # Add Sponsor menu to the app
+    app = SQLiteApp(root, sponsor)
+    
     root.protocol('WM_DELETE_WINDOW', app.close)
     root.mainloop()
 
