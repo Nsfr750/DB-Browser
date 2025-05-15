@@ -14,6 +14,7 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - 💾 SQLite (.db)
 - 🐬 MySQL
 - 🐘 PostgreSQL
+- 📊 dBase (.dbf, .db3)
 - 📊 Microsoft Access (Coming soon)
 - 🗃️ MVO (Legacy support)
 
