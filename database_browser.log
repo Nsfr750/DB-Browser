@@ -29,3 +29,4 @@
 2025-05-15 19:09:10,570 - MVOHandler - ERROR - Connection error: MVO Connection Error: Invalid MVO database format
 2025-05-15 19:09:10,570 - DatabaseDemo - ERROR - \u274c Error processing database: MVO Connection Error: Invalid MVO database format
 2025-05-15 19:09:10,570 - DatabaseDemo - INFO - \U0001f3c1 Database Handler Demonstrations Complete
+2025-05-15 19:24:55,876 - DatabaseHandlerFactory - INFO - Creating SQLite handler for C:/Users/guara/Documents/GitHub/DB-Browser/sample_databases/employees.db
