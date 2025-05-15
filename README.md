@@ -85,7 +85,7 @@ flake8 .
 
 ## 📜 License
 
-[Specify your license here, e.g., MIT]
+MIT License
 
 ## 🆘 Support
 
@@ -101,11 +101,7 @@ For issues and feature requests, please use the GitHub Issues section.
 ## 💡 Acknowledgments
 
 - Python Community
-- Open Source Contributors
-
-## Installation
-
-1. Clone the repository
+- Open Source Contributors1. Clone the repository
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
