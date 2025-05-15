@@ -51,34 +51,47 @@ class SQLiteApp:
         # Create File menu
         file_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label='File', menu=file_menu)
-        file_menu.add_command(label='Open Database', command=self.open_database)
-        file_menu.add_command(label='Export to CSV', command=self.export_to_csv)
+        file_menu.add_command(label='Open Database', command=self.open_database, accelerator='Ctrl+O')
+        file_menu.add_command(label='Export to CSV', command=self.export_to_csv, accelerator='Ctrl+E')
         file_menu.add_separator()
-        file_menu.add_command(label='Exit', command=self.root.quit)
+        file_menu.add_command(label='Exit', command=self.root.quit, accelerator='Ctrl+Q')
 
         # Create Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label='Help', menu=help_menu)
-        help_menu.add_command(label='About', command=self.show_about)
+        help_menu.add_command(label='About', command=self.show_about, accelerator='F1')
         help_menu.add_command(label='Sponsors', command=self.show_sponsors)
 
-        # Create Treeview
-        self.tree = ttk.Treeview(self.root)
+        # Create Treeview with status bar
+        self.tree_frame = ttk.Frame(self.root)
+        self.tree_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.tree = ttk.Treeview(self.tree_frame)
         self.tree.pack(fill=tk.BOTH, expand=True)
 
         # Add scrollbars
-        vsb = ttk.Scrollbar(self.root, orient="vertical", command=self.tree.yview)
-        hsb = ttk.Scrollbar(self.root, orient="horizontal", command=self.tree.xview)
+        vsb = ttk.Scrollbar(self.tree_frame, orient="vertical", command=self.tree.yview)
+        hsb = ttk.Scrollbar(self.tree_frame, orient="horizontal", command=self.tree.xview)
         self.tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
         
-        # Grid layout
+        # Grid layout for treeview and scrollbars
         self.tree.grid(column=0, row=0, sticky='nsew')
         vsb.grid(column=1, row=0, sticky='ns')
         hsb.grid(column=0, row=1, sticky='ew')
         
         # Configure grid weights
-        self.root.grid_rowconfigure(0, weight=1)
-        self.root.grid_columnconfigure(0, weight=1)
+        self.tree_frame.grid_rowconfigure(0, weight=1)
+        self.tree_frame.grid_columnconfigure(0, weight=1)
+
+        # Status bar
+        self.status_bar = ttk.Label(self.root, text='Ready', relief=tk.SUNKEN, anchor=tk.W)
+        self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+
+        # Keyboard shortcuts
+        self.root.bind('<Control-o>', lambda e: self.open_database())
+        self.root.bind('<Control-e>', lambda e: self.export_to_csv())
+        self.root.bind('<Control-q>', lambda e: self.root.quit())
+        self.root.bind('<F1>', lambda e: self.show_about())
 
     def open_database(self):
         try:
@@ -188,13 +201,15 @@ class SQLiteApp:
 
     def show_sponsors(self):
         try:
-            from sponsor import Sponsor
-            sponsor = Sponsor(self.root)
-            sponsor.show_sponsor()
-        except ImportError:
-            messagebox.showwarning('Sponsors', 'Sponsor information is not available.')
+            with open('docs/sponsors.txt', 'r', encoding='utf-8') as f:
+                sponsors_text = f.read()
+            messagebox.showinfo('Sponsors', sponsors_text)
+        except FileNotFoundError:
+            messagebox.showwarning('Sponsors', 'Sponsors file not found.')
+        except PermissionError:
+            messagebox.showerror('Error', 'Permission denied accessing sponsors file.')
         except Exception as e:
-            messagebox.showerror('Error', f'Error loading sponsor information: {str(e)}')
+            messagebox.showerror('Error', f'Unexpected error loading sponsors: {str(e)}')
 
     def close(self):
         if self.db_handler:
