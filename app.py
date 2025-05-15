@@ -3,11 +3,13 @@ from tkinter import ttk, messagebox, filedialog
 import csv
 import os
 from database_handlers import get_database_handler, DatabaseHandler
+from sponsor import Sponsor
 
 class SQLiteApp:
-    def __init__(self, root):
+    def __init__(self, root, sponsor=None):
         self.root = root
         self.root.title('Database Browser')
+        self.sponsor = sponsor
         self.create_widgets()
         self.conn = None
         self.current_table = None
@@ -61,6 +63,10 @@ class SQLiteApp:
         menubar.add_cascade(label='Help', menu=help_menu)
         help_menu.add_command(label='About', command=self.show_about, accelerator='F1')
         help_menu.add_command(label='Sponsors', command=self.show_sponsors)
+
+    def show_sponsors(self):
+        if self.sponsor:
+            self.sponsor.show_sponsor()
 
         # Create Treeview with status bar
         self.tree_frame = ttk.Frame(self.root)
@@ -219,15 +225,13 @@ class SQLiteApp:
 
     def show_sponsors(self):
         try:
-            with open('docs/sponsors.txt', 'r', encoding='utf-8') as f:
-                sponsors_text = f.read()
-            messagebox.showinfo('Sponsors', sponsors_text)
-        except FileNotFoundError:
-            messagebox.showwarning('Sponsors', 'Sponsors file not found.')
-        except PermissionError:
-            messagebox.showerror('Error', 'Permission denied accessing sponsors file.')
+            from sponsor import Sponsor
+            sponsor = Sponsor(self.root)
+            sponsor.show_sponsor()
+        except ImportError:
+            messagebox.showwarning('Sponsors', 'Sponsor information is not available.')
         except Exception as e:
-            messagebox.showerror('Error', f'Unexpected error loading sponsors: {str(e)}')
+            messagebox.showerror('Error', f'Error loading sponsor information: {str(e)}')
 
     def close(self):
         if self.db_handler:
