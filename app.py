@@ -199,26 +199,31 @@ class SQLiteApp:
             
             # Query the selected table
             cursor = self.conn.cursor()
-            cursor.execute(f'SELECT * FROM "{selected_table}"')
+            if self.db_type == 'jet':
+                cursor.execute(f'SELECT * FROM [{selected_table}]')
+            else:
+                cursor.execute(f'SELECT * FROM "{selected_table}"')
             rows = cursor.fetchall()
-
-            # Clear the treeview
-            self.tree.delete(*self.tree.get_children())
-
-            # Get column names from cursor description
-            columns = [description[0] for description in cursor.description]
-            self.tree['columns'] = columns
             
-            # Configure column headings
-            for col in columns:
-                self.tree.heading(col, text=col)
-                self.tree.column(col, width=100)
-
-            # Insert data into the treeview
+            # Clear and populate Treeview
+            for i in self.tree.get_children():
+                self.tree.delete(i)
+            
+            # Add column headers
+            headers = [description[0] for description in cursor.description]
+            self.tree['columns'] = headers
+            for header in headers:
+                self.tree.heading(header, text=header)
+                self.tree.column(header, anchor='center')
+            
+            # Add rows
             for row in rows:
                 self.tree.insert('', 'end', values=row)
-        except sqlite3.Error as e:
+        
+        except (sqlite3.Error, pyodbc.Error, MVOError, MySQLdb.Error) as e:
             messagebox.showerror('Database Error', str(e))
+        except Exception as e:
+            messagebox.showerror('Error', f'Error loading database: {str(e)}')
 
     def export_to_csv(self):
         try:
@@ -266,40 +271,12 @@ class SQLiteApp:
             
             messagebox.showinfo('Success', f'Data exported to {os.path.basename(file_path)}')
         
-        except sqlite3.Error as e:
-            messagebox.showerror('SQLite Error', str(e))
-        except pyodbc.Error as e:
-            messagebox.showerror('Access Database Error', str(e))
-        except MVOError as e:
-            messagebox.showerror('MVO Database Error', str(e))
-        except IOError as e:
-            messagebox.showerror('File Error', f'Error writing to CSV file: {str(e)}')
-            writer.writerow(['Column1', 'Column2', 'Column3'])  # Adjust column names
-            writer.writerows(rows)
-
-        messagebox.showinfo('Success', 'Data exported to output.csv')
+        except (sqlite3.Error, pyodbc.Error, MVOError, IOError, MySQLdb.Error) as e:
+            messagebox.showerror('Export Error', str(e))
 
     def show_about(self):
-        about_dialog = tk.Toplevel(self.root)
-        about_dialog.title('About Database Browser')
-        about_dialog.geometry('400x300')
-        about_dialog.transient(self.root)
-        about_dialog.grab_set()
-
-        # Add app icon or logo here if you have one
-        title = ttk.Label(about_dialog, text='Database Browser', font=('Helvetica', 16, 'bold'))
-        title.pack(pady=20)
-
-        version = ttk.Label(about_dialog, text='Version 1.0')
-        version.pack()
-
-        description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite, Access (Jet DB), and MVO databases.', justify=tk.CENTER)
-        description.pack(pady=20)
-
-        copyright = ttk.Label(about_dialog, text='© 2025 Nsfr750')
-        copyright.pack(pady=10)
-
-        ttk.Button(about_dialog, text='Close', command=about_dialog.destroy).pack(pady=20)
+        from about import About
+        About.show_about(self.root)
 
     def show_sponsors(self):
         try:
