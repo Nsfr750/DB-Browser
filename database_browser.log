@@ -1,1 +1,31 @@
 2025-05-15 18:56:15,625 - DatabaseHandlerFactory - INFO - Creating SQLite handler for C:/Users/guara/Documents/GitHub/Weather-Station/weather_data.db
+2025-05-15 19:09:06,476 - DatabaseDemo - INFO - \U0001f680 Starting Database Handler Demonstrations
+2025-05-15 19:09:06,476 - DatabaseDemo - INFO - 
+\U0001f539 Demonstrating SQLITE Database
+2025-05-15 19:09:06,476 - DatabaseDemo - INFO - Processing Database: Local SQLite database with employee records
+2025-05-15 19:09:06,477 - DatabaseHandlerFactory - INFO - Creating SQLite handler for sample_databases/employees.db
+2025-05-15 19:09:06,477 - DatabaseDemo - INFO - \U0001f50d Step 1: Connecting to Database
+2025-05-15 19:09:06,477 - DatabaseDemo - INFO - \U0001f4cb Step 2: Listing Tables
+2025-05-15 19:09:06,478 - DatabaseDemo - ERROR - \u274c Error processing database: file is not a database
+2025-05-15 19:09:06,478 - DatabaseDemo - INFO - 
+\U0001f539 Demonstrating MYSQL Database
+2025-05-15 19:09:06,478 - DatabaseDemo - INFO - Processing Database: MySQL database on local server
+2025-05-15 19:09:06,478 - DatabaseHandlerFactory - INFO - Creating MySQL handler for company_db
+2025-05-15 19:09:06,478 - DatabaseDemo - INFO - \U0001f50d Step 1: Connecting to Database
+2025-05-15 19:09:10,567 - MySQLHandler - ERROR - Connection error: MySQL Connection Error: (2002, "Can't connect to server on 'localhost' (10061)")
+2025-05-15 19:09:10,567 - DatabaseDemo - ERROR - \u274c Error processing database: MySQL Connection Error: (2002, "Can't connect to server on 'localhost' (10061)")
+2025-05-15 19:09:10,567 - DatabaseDemo - INFO - 
+\U0001f539 Demonstrating ACCESS Database
+2025-05-15 19:09:10,567 - DatabaseDemo - INFO - Processing Database: Microsoft Access database with sales data
+2025-05-15 19:09:10,567 - DatabaseHandlerFactory - INFO - Creating Access handler for sample_databases/sales_records.mdb
+2025-05-15 19:09:10,567 - DatabaseDemo - INFO - \U0001f50d Step 1: Connecting to Database
+2025-05-15 19:09:10,569 - AccessHandler - ERROR - Connection error: Access Database Connection Error: ('IM002', '[IM002] [Microsoft][Driver Manager ODBC] Nome origine dati non trovato e driver predefinito non specificato. (0) (SQLDriverConnect)')
+2025-05-15 19:09:10,569 - DatabaseDemo - ERROR - \u274c Error processing database: Access Database Connection Error: ('IM002', '[IM002] [Microsoft][Driver Manager ODBC] Nome origine dati non trovato e driver predefinito non specificato. (0) (SQLDriverConnect)')
+2025-05-15 19:09:10,569 - DatabaseDemo - INFO - 
+\U0001f539 Demonstrating MVO Database
+2025-05-15 19:09:10,569 - DatabaseDemo - INFO - Processing Database: Multiversion Object database tracking product inventory
+2025-05-15 19:09:10,569 - DatabaseHandlerFactory - INFO - Creating MVO handler for sample_databases/product_inventory.mvo
+2025-05-15 19:09:10,569 - DatabaseDemo - INFO - \U0001f50d Step 1: Connecting to Database
+2025-05-15 19:09:10,570 - MVOHandler - ERROR - Connection error: MVO Connection Error: Invalid MVO database format
+2025-05-15 19:09:10,570 - DatabaseDemo - ERROR - \u274c Error processing database: MVO Connection Error: Invalid MVO database format
+2025-05-15 19:09:10,570 - DatabaseDemo - INFO - \U0001f3c1 Database Handler Demonstrations Complete
