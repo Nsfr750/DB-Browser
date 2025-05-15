@@ -13,6 +13,7 @@
 pyodbc>=4.0.39  # MS Access/Jet OLEDB database support
 mysqlclient==2.2.1  # MySQL database connector
 psycopg2-binary>=2.9.9  # PostgreSQL database connector
+dbf>=0.99.10  # dBase database support
 
 # Recommended Versions
 # - Python 3.8+
