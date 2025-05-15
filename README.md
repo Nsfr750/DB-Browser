@@ -26,6 +26,33 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - 🛡️ Robust error handling
 - 🌐 Cross-platform compatibility
 
+### Database Handler Usage
+
+The `get_database_handler()` function in `database_handlers.py` provides a unified interface for working with different database types:
+
+```python
+from database_handlers import get_database_handler
+
+# For file-based databases
+handler = get_database_handler(db_path='example.db')
+
+# For network databases
+handler = get_database_handler(connection_params={
+    'type': 'mysql',
+    'host': 'localhost',
+    'user': 'username',
+    'password': 'password',
+    'database': 'mydb'
+})
+
+# Common methods
+handler.connect()
+tables = handler.get_tables()
+results = handler.execute_query('SELECT * FROM mytable')
+handler.export_to_csv('mytable', 'output.csv')
+handler.close()
+```
+
 ## 📦 Installation
 
 ### Prerequisites
