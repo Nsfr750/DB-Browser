@@ -97,8 +97,15 @@ class SQLiteApp:
         try:
             db_path = filedialog.askopenfilename(
                 title='Open Database',
-                filetypes=[('SQLite Database', '*.db'),
-                          ('All Files', '*.*')])
+                filetypes=[
+                    ('SQLite Database', '*.db'),
+                    ('MySQL Database', '*.mdb'),
+                    ('Access Database', '*.accdb'),
+                    ('dBase Database', '*.dbf *.db3'),
+                    ('Multiversion Object Database', '*.mvo'),
+                    ('All Database Files', '*.db *.mdb *.accdb *.dbf *.db3 *.mvo'),
+                    ('All Files', '*.*')
+                ])
             
             if not db_path:
                 return
@@ -116,10 +123,19 @@ class SQLiteApp:
             
             # Get the appropriate database handler
             self.db_handler = get_database_handler(db_path)
+            
+            if not self.db_handler:
+                messagebox.showerror('Error', f'No handler found for database type: {db_path}')
+                return
+            
             self.db_handler.connect()
             
             # Get tables
             tables = self.db_handler.get_tables()
+            
+            if not tables:
+                messagebox.showwarning('Warning', 'No tables found in the database')
+                return
             
             # Ask user to select a table
             selected_table = self.ask_table_selection(tables)
@@ -139,12 +155,14 @@ class SQLiteApp:
                     self.tree['columns'] = columns
                     for col in columns:
                         self.tree.heading(col, text=col)
-                        self.tree.column(col, anchor='center')
+                        self.tree.column(col, anchor='center', width=100)
                     
                     # Insert data
                     for row in rows:
                         self.tree.insert('', 'end', values=list(row.values()))
                 
+                # Update status bar
+                self.status_bar.config(text=f'Loaded {selected_table} from {os.path.basename(db_path)}')
                 self.current_table = selected_table
         
         except Exception as e:
