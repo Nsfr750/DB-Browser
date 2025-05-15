@@ -1,13 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-import sqlite3
-import pyodbc
 import csv
 import os
-import json  # For MVO database support
-from mvo_db import MVOConnection, MVOError  # MVO database handler
-import MySQLdb  # For MySQL database support
-from mysql_db import MySQLDatabase  # MySQL database handler
+from database_handlers import get_database_handler, DatabaseHandler
 
 class SQLiteApp:
     def __init__(self, root):
@@ -16,7 +11,7 @@ class SQLiteApp:
         self.create_widgets()
         self.conn = None
         self.current_table = None
-        self.db_type = None  # 'sqlite', 'jet', or 'mvo'
+        self.db_handler = None
 
     def ask_table_selection(self, tables):
         dialog = tk.Toplevel(self.root)
@@ -89,150 +84,67 @@ class SQLiteApp:
         try:
             db_path = filedialog.askopenfilename(
                 title='Open Database',
-                filetypes=[('All Databases', '*.db;*.mdb;*.accdb;*.mvo;*.sql'), ('SQLite Database', '*.db'),
-                          ('MS Access Database', '*.mdb;*.accdb'), ('MVO Database', '*.mvo'),
-                          ('MySQL Database', '*.sql'),
-                          ('All Files', '*.*')]
-            )
+                filetypes=[('SQLite Database', '*.db'),
+                          ('All Files', '*.*')])
             
             if not db_path:
                 return
                 
             self.load_database(db_path)
-            
-        except sqlite3.Error as e:
-            messagebox.showerror('SQLite Error', str(e))
-        except pyodbc.Error as e:
-            messagebox.showerror('Access Database Error', str(e))
-        except MVOError as e:
-            messagebox.showerror('MVO Database Error', str(e))
+        
         except Exception as e:
-            messagebox.showerror('Error', f'Error opening database: {str(e)}')
-    
-    def connect_mysql_database(self):
-        try:
-            mysql_details = MySQLDatabase.get_connection_details()
-            if mysql_details:
-                self.conn = MySQLdb.connect(
-                    host=mysql_details['host'],
-                    user=mysql_details['user'],
-                    passwd=mysql_details['password'],
-                    db=mysql_details['database']
-                )
-                return True
-            return False
-        except MySQLdb.Error as e:
-            messagebox.showerror("MySQL Connection Error", f"Failed to connect to MySQL database: {e}")
-            return False
-
-    def list_tables(self):
-        try:
-            if self.db_type == 'sqlite':
-                cursor = self.conn.cursor()
-                cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-                return [table[0] for table in cursor.fetchall()]
-            elif self.db_type == 'mvo':
-                return self.conn.list_tables()
-            elif self.db_type == 'jet':
-                cursor = self.conn.cursor()
-                cursor.execute("SELECT Name FROM MSysObjects WHERE Type=1 AND Flags=0")
-                return [table[0] for table in cursor.fetchall()]
-            elif self.db_type == 'mysql':
-                cursor = self.conn.cursor()
-                cursor.execute("SHOW TABLES")
-                return [table[0] for table in cursor.fetchall()]
-            else:
-                messagebox.showerror('Error', 'Unsupported database type')
-                return []
-        except sqlite3.Error as e:
-            messagebox.showerror('SQLite Error', str(e))
-        except pyodbc.Error as e:
-            messagebox.showerror('Access Database Error', str(e))
-        except MVOError as e:
-            messagebox.showerror('MVO Database Error', str(e))
-        except Exception as e:
-            messagebox.showerror('Error', f'Error listing tables: {str(e)}')
+            messagebox.showerror('Error', str(e))
 
     def load_database(self, db_path):
         try:
-            # Close existing connection if any
-            if self.conn:
-                self.conn.close()
+            # Close any existing database handler
+            if self.db_handler:
+                self.db_handler.close()
+            
+            # Get the appropriate database handler
+            self.db_handler = get_database_handler(db_path)
+            self.db_handler.connect()
+            
+            # Get tables
+            tables = self.db_handler.get_tables()
+            
+            # Ask user to select a table
+            selected_table = self.ask_table_selection(tables)
+            
+            if selected_table:
+                # Clear existing treeview
+                for i in self.tree.get_children():
+                    self.tree.delete(i)
                 
-            # Determine database type from extension
-            ext = os.path.splitext(db_path)[1].lower()
-            if ext == '.db':
-                self.db_type = 'sqlite'
-                self.conn = sqlite3.connect(db_path)
-            elif ext in ['.mdb', '.accdb']:
-                # Jet OLEDB connection
-                conn_str = (
-                    r'DRIVER={{Microsoft Jet OLEDB 3.51}};'
-                    r'DBQ={};'.format(db_path)
-                )
-                self.conn = pyodbc.connect(conn_str)
-                self.db_type = 'jet'
-            elif ext == '.mvo':
-                self.db_type = 'mvo'
-                self.conn = MVOConnection(db_path)
-            elif ext == '.sql':
-                if self.connect_mysql_database():
-                    self.db_type = 'mysql'
-            else:
-                raise ValueError('Unsupported database format')
+                # Fetch and display table data
+                query = f'SELECT * FROM {selected_table}'
+                rows = self.db_handler.execute_query(query)
                 
-            self.root.title(f'Database Browser - {os.path.basename(db_path)}')
-            
-            # Get list of tables
-            tables = self.list_tables()
-            if not tables:
-                messagebox.showwarning('Warning', 'No tables found in the database')
-                return
-            
-            # If there's only one table, use it; otherwise ask user to select
-            if len(tables) == 1:
-                selected_table = tables[0]
-            else:
-                selected_table = self.ask_table_selection(tables)
-                if not selected_table:
-                    return
-            
-            # Query the selected table
-            cursor = self.conn.cursor()
-            if self.db_type == 'jet':
-                cursor.execute(f'SELECT * FROM [{selected_table}]')
-            else:
-                cursor.execute(f'SELECT * FROM "{selected_table}"')
-            rows = cursor.fetchall()
-            
-            # Clear and populate Treeview
-            for i in self.tree.get_children():
-                self.tree.delete(i)
-            
-            # Add column headers
-            headers = [description[0] for description in cursor.description]
-            self.tree['columns'] = headers
-            for header in headers:
-                self.tree.heading(header, text=header)
-                self.tree.column(header, anchor='center')
-            
-            # Add rows
-            for row in rows:
-                self.tree.insert('', 'end', values=row)
+                if rows:
+                    # Configure treeview columns
+                    columns = list(rows[0].keys())
+                    self.tree['columns'] = columns
+                    for col in columns:
+                        self.tree.heading(col, text=col)
+                        self.tree.column(col, anchor='center')
+                    
+                    # Insert data
+                    for row in rows:
+                        self.tree.insert('', 'end', values=list(row.values()))
+                
+                self.current_table = selected_table
         
-        except (sqlite3.Error, pyodbc.Error, MVOError, MySQLdb.Error) as e:
-            messagebox.showerror('Database Error', str(e))
         except Exception as e:
-            messagebox.showerror('Error', f'Error loading database: {str(e)}')
+            messagebox.showerror('Error', str(e))
 
     def export_to_csv(self):
         try:
-            if not self.conn:
+            if not self.db_handler:
                 messagebox.showerror('Error', 'No database connection')
                 return
 
             # Get list of tables
-            tables = self.list_tables()
+            tables = self.db_handler.get_tables()
             if not tables:
                 messagebox.showwarning('Warning', 'No tables found in the database')
                 return
@@ -255,23 +167,19 @@ class SQLiteApp:
             if not file_path:
                 return
 
-            cursor = self.conn.cursor()
-            if self.db_type == 'jet':
-                cursor.execute(f'SELECT * FROM [{selected_table}]')
-            else:
-                cursor.execute(f'SELECT * FROM "{selected_table}"')
-            rows = cursor.fetchall()
+            query = f'SELECT * FROM {selected_table}'
+            rows = self.db_handler.execute_query(query)
 
             with open(file_path, 'w', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
                 # Get column names from cursor description
-                columns = [description[0] for description in cursor.description]
+                columns = list(rows[0].keys())
                 writer.writerow(columns)
-                writer.writerows(rows)
+                writer.writerows([list(row.values()) for row in rows])
             
             messagebox.showinfo('Success', f'Data exported to {os.path.basename(file_path)}')
         
-        except (sqlite3.Error, pyodbc.Error, MVOError, IOError, MySQLdb.Error) as e:
+        except Exception as e:
             messagebox.showerror('Export Error', str(e))
 
     def show_about(self):
@@ -289,11 +197,8 @@ class SQLiteApp:
             messagebox.showerror('Error', f'Error loading sponsor information: {str(e)}')
 
     def close(self):
-        try:
-            if self.conn:
-                self.conn.close()
-        except Exception as e:
-            print(f"Error closing database: {e}")
+        if self.db_handler:
+            self.db_handler.close()
         self.root.quit()
 
 if __name__ == '__main__':
