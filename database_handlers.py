@@ -91,6 +91,48 @@ class MySQLHandler(DatabaseHandler):
             writer.writerow(headers)
             writer.writerows(self.cursor.fetchall())
 
+class DBaseHandler(DatabaseHandler):
+    def __init__(self, db_path: str):
+        super().__init__(db_path=db_path)
+        self.table = None
+
+    def connect(self):
+        try:
+            self.table = dbf.Table(self.db_path)
+            self.table.open()
+        except Exception as e:
+            raise ValueError(f"Error opening dBase file: {e}")
+
+    def get_tables(self) -> List[str]:
+        # For dBase, we return the single table name
+        return [os.path.splitext(os.path.basename(self.db_path))[0]]
+
+    def execute_query(self, query: str = None, params: tuple = None) -> List[Dict[str, Any]]:
+        if not self.table:
+            raise ValueError("Database not connected")
+        
+        # Convert dBase records to dictionaries
+        return [dict(record) for record in self.table]
+
+    def export_to_csv(self, table_name: str, output_path: str):
+        if not self.table:
+            raise ValueError("Database not connected")
+        
+        with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            
+            # Write headers
+            headers = self.table.field_names
+            writer.writerow(headers)
+            
+            # Write data
+            for record in self.table:
+                writer.writerow([getattr(record, field) for field in headers])
+
+    def close(self):
+        if self.table:
+            self.table.close()
+
 class PostgreSQLHandler(DatabaseHandler):
     def __init__(self, connection_params: Dict[str, Any]):
         super().__init__(connection_params=connection_params)
@@ -144,6 +186,8 @@ def get_database_handler(db_path: str = None, connection_params: Dict[str, Any] 
         # File-based databases
         if db_path.endswith('.db'):
             return SQLiteHandler(db_path)
+        elif db_path.endswith(('.dbf', '.db3')):
+            return DBaseHandler(db_path)
         elif db_path.endswith(('.mdb', '.accdb')):
             # MS Access via pyodbc
             return None  # TODO: Implement MS Access handler
