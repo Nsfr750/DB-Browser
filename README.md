@@ -1,54 +1,107 @@
 # Database Browser
 
 [![Version](https://img.shields.io/badge/version-1.2.0--beta-blue.svg)](https://semver.org)
+[![Python Versions](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A Python-based GUI application for browsing and exporting database files. This application supports multiple database formats, including SQLite, Microsoft Access, MVO, and MySQL databases, allowing users to view contents in a table format and export data to CSV files.
+## 🌟 Overview
 
-## Version Information
+Database Browser is a powerful, cross-platform GUI application designed to simplify database exploration and data management across multiple database formats.
+
+## 🚀 Features
+
+### Supported Databases
+- 💾 SQLite (.db, .sqlite)
+- 📊 Microsoft Access (.mdb, .accdb)
+- 🗃️ MVO (Multiversion Object) (.mvo)
+- 🐬 MySQL (.sql)
+
+### Key Capabilities
+- 📋 Browse and view database tables
+- 📤 Export table data to CSV
+- 🖥️ User-friendly graphical interface
+- 🛡️ Robust error handling
+- 🌐 Cross-platform compatibility
+
+## 📦 Installation
+
+### Prerequisites
+- Python 3.8+
+- pip 21.0+
+
+### Setup
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/DB-Browser.git
+cd DB-Browser
+```
+
+2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+## 🖱️ Usage
+
+Run the application:
+```bash
+python main.py
+```
+
+## 📝 Documentation
+
+For detailed information, check our documentation:
+- [User Guide](docs/index.md)
+- [Development Guide](docs/development.md)
+
+## 🔧 Development
+
+### Running Tests
+```bash
+pytest tests/
+```
+
+### Code Quality
+```bash
+flake8 .
+```
+
+## 📊 Version
 
 - **Current Version**: 1.2.0-beta
-- **Version Management**: Follows Semantic Versioning 2.0.0
-- **Version Details**: 
+- **Version Management**: Semantic Versioning 2.0.0
   - Major: 1
   - Minor: 2
   - Patch: 0
   - Qualifier: beta
 
-## Features
+## 🤝 Contributing
 
-- Open and browse multiple database formats:
-  - SQLite (.db, .sqlite)
-  - Microsoft Access (.mdb, .accdb) with Jet OLEDB 3.51 support
-  - MVO (.mvo) - Multiversion Object database files
-  - MySQL (.sql)
-- Comprehensive database exploration:
-  - List and view tables
-  - Export table data to CSV
-  - Interactive table selection
-- User-friendly graphical interface
-- Robust error handling and user feedback
-- Cross-platform compatibility
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## Recent Updates
+## 📜 License
 
-- Added full support for MySQL databases
-- Improved database connection and table listing
-- Enhanced CSV export functionality
-- Modular code structure with separate modules for different database types
-- Better error handling and user experience
+[Specify your license here, e.g., MIT]
 
-## Requirements
+## 🆘 Support
 
-- Python 3.8+
-- Dependencies listed in `requirements.txt`
+For issues and feature requests, please use the GitHub Issues section.
 
-### Dependencies
+## 🗺️ Roadmap
 
-- tkinter (GUI framework)
-- sqlite3 (SQLite database operations)
-- pyodbc (ODBC database connectivity)
-- MySQLdb (MySQL database connectivity)
-- csv (Data export)
+- [ ] Add more database format support
+- [ ] Improve error handling
+- [ ] Enhance export functionality
+- [ ] Create comprehensive test suite
+
+## 💡 Acknowledgments
+
+- Python Community
+- Open Source Contributors
 
 ## Installation
 
