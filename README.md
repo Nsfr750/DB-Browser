@@ -1,6 +1,6 @@
 # Database Browser
 
-A Python-based GUI application for browsing and exporting database files. This application supports SQLite, Microsoft Access (Jet OLEDB 3.51), and MVO (Multiversion Object) databases, allowing users to view contents in a table format and export data to CSV files.
+A Python-based GUI application for browsing and exporting database files. This application supports multiple database formats, including SQLite, Microsoft Access, MVO, and MySQL databases, allowing users to view contents in a table format and export data to CSV files.
 
 ## Features
 
@@ -8,6 +8,7 @@ A Python-based GUI application for browsing and exporting database files. This a
   - SQLite (.db, .sqlite)
   - Microsoft Access (.mdb, .accdb) with Jet OLEDB 3.51 support
   - MVO (.mvo) - Multiversion Object database files
+  - MySQL (.sql)
 - Comprehensive database exploration:
   - List and view tables
   - Export table data to CSV
@@ -18,10 +19,11 @@ A Python-based GUI application for browsing and exporting database files. This a
 
 ## Recent Updates
 
-- Added full support for Microsoft Jet OLEDB 3.51
+- Added full support for MySQL databases
 - Improved database connection and table listing
 - Enhanced CSV export functionality
-- Better error handling for different database types
+- Modular code structure with separate modules for different database types
+- Better error handling and user experience
 
 ## Requirements
 
@@ -33,6 +35,7 @@ A Python-based GUI application for browsing and exporting database files. This a
 - tkinter (GUI framework)
 - sqlite3 (SQLite database operations)
 - pyodbc (ODBC database connectivity)
+- MySQLdb (MySQL database connectivity)
 - csv (Data export)
 
 ## Installation
