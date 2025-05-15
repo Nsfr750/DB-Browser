@@ -107,7 +107,7 @@ For issues and feature requests, please use the GitHub Issues section.
    pip install -r requirements.txt
    ```
    
-## Support the Project
+## 🤝 Support the Project
 
 You can support this project through various platforms:
 - GitHub Sponsors
