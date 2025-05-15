@@ -12,4 +12,6 @@
 # - pyodbc (ODBC database connectivity)
 pyodbc==0.9.5
 pyodbc>=4.0.39  # For MS Access/Jet DB support
+# MySQL database support
+mysqlclient==2.2.1  # MySQL database connector
 # json is part of Python's standard library and does not require installation
