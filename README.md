@@ -1,24 +1,65 @@
 # Database Browser
 
-A Python-based GUI application for browsing and exporting database files. This application supports SQLite, Microsoft Access (Jet DB), and MVO (Multiversion Object) databases, allowing users to view contents in a table format and export data to CSV files.
+A Python-based GUI application for browsing and exporting database files. This application supports SQLite, Microsoft Access (Jet OLEDB 3.51), and MVO (Multiversion Object) databases, allowing users to view contents in a table format and export data to CSV files.
 
 ## Features
 
 - Open and browse multiple database formats:
-  - SQLite (.db)
-  - Microsoft Access (.mdb, .accdb)
+  - SQLite (.db, .sqlite)
+  - Microsoft Access (.mdb, .accdb) with Jet OLEDB 3.51 support
   - MVO (.mvo) - Multiversion Object database files
-- Export data to CSV files
-- Support for multiple tables within a database
-- Interactive table selection for databases with multiple tables
-- Data displayed in a scrollable table view with column headers
-- Export table data to CSV files
-- User-friendly interface with menu-based navigation
-- About and Sponsors information
-- Sponsor support through various platforms
-- Proper error handling and user feedback
+- Comprehensive database exploration:
+  - List and view tables
+  - Export table data to CSV
+  - Interactive table selection
+- User-friendly graphical interface
+- Robust error handling and user feedback
+- Cross-platform compatibility
+
+## Recent Updates
+
+- Added full support for Microsoft Jet OLEDB 3.51
+- Improved database connection and table listing
+- Enhanced CSV export functionality
+- Better error handling for different database types
 
 ## Requirements
+
+- Python 3.8+
+- Dependencies listed in `requirements.txt`
+
+### Dependencies
+
+- tkinter (GUI framework)
+- sqlite3 (SQLite database operations)
+- pyodbc (ODBC database connectivity)
+- csv (Data export)
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+Run the application:
+```bash
+python main.py
+```
+
+### Supported Database Types
+- SQLite (.db, .sqlite)
+- Microsoft Access (.mdb, .accdb)
+- Custom MVO databases (.mvo)
+
+## Contributing
+Contributions are welcome! Please submit pull requests or open issues.
+
+## License
+[Add your license information here]
 
 ### Core Requirements
 - Python 3.x
