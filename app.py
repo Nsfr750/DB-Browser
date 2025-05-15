@@ -109,7 +109,7 @@ class SQLiteApp:
                     ('Access Database', '*.accdb'),
                     ('dBase Database', '*.dbf *.db3'),
                     ('Microsoft Access Database', '*.mdb'),
-                    ('PostgresSQL Database, *.psql'),
+                    ('PostgresSQL Database', '*.psql'),
                     ('Multiversion Object Database', '*.mvo'),
                     ('All Database Files', '*.db *.sql *.accdb *.dbf *.db3 *.psql *.mvo'),
                     ('All Files', '*.*')
