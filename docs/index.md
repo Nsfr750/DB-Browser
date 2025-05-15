@@ -6,23 +6,61 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 
 ## Features
 
-- Support for multiple database types:
-  - SQLite
-  - Microsoft Access (Jet OLEDB)
-  - MVO (Multiversion Object)
-  - MySQL
+### Supported Database Types
+- SQLite (.db)
+- MySQL (network)
+- Microsoft Access (.mdb, .accdb)
+- Multiversion Object (.mvo)
+- dBase (.dbf, .db3)
 
-- Key Capabilities:
+### Key Capabilities
+- Universal Database Handler
+  - Unified interface across database types
+  - Automatic handler selection
+  - Consistent method signatures
+
+- Database Operations
   - Browse database tables
+  - Execute custom queries
   - Export table data to CSV
-  - User-friendly interface
-  - Robust error handling
+  - Robust connection management
+
+### Advanced Features
+- Comprehensive logging
+- Detailed error handling
+- Cross-platform compatibility
+- Extensible architecture
 
 ## Installation
 
 ### Prerequisites
-
 - Python 3.8+
+- Required dependencies:
+  ```
+  pip install pyodbc mysqlclient sqlite3
+  ```
+
+### Configuration
+Database connections can be configured using:
+- File paths for local databases
+- Connection parameters for network databases
+
+#### Example Connection
+```python
+from database_handlers import get_database_handler
+
+# SQLite Connection
+handler = get_database_handler(db_path='example.db')
+
+# MySQL Connection
+handler = get_database_handler(connection_params={
+    'type': 'mysql',
+    'host': 'localhost',
+    'user': 'username',
+    'password': 'password',
+    'database': 'mydb'
+})
+```
 - pip 21.0+
 
 ### Dependencies
