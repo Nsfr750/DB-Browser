@@ -4,6 +4,7 @@
 ### Added
 - Modular database handler system supporting multiple database types
 - Added support for PostgreSQL database connections
+- Added support for dBase (.dbf, .db3) database files
 - Simplified database connection and table browsing logic
 
 All notable changes to the Database Browser project will be documented in this file.
