@@ -6,6 +6,8 @@ import csv
 import os
 import json  # For MVO database support
 from mvo_db import MVOConnection, MVOError  # MVO database handler
+import MySQLdb  # For MySQL database support
+from mysql_db import MySQLDatabase  # MySQL database handler
 
 class SQLiteApp:
     def __init__(self, root):
@@ -87,8 +89,9 @@ class SQLiteApp:
         try:
             db_path = filedialog.askopenfilename(
                 title='Open Database',
-                filetypes=[('All Databases', '*.db;*.mdb;*.accdb;*.mvo'), ('SQLite Database', '*.db'),
+                filetypes=[('All Databases', '*.db;*.mdb;*.accdb;*.mvo;*.sql'), ('SQLite Database', '*.db'),
                           ('MS Access Database', '*.mdb;*.accdb'), ('MVO Database', '*.mvo'),
+                          ('MySQL Database', '*.sql'),
                           ('All Files', '*.*')]
             )
             
@@ -106,6 +109,22 @@ class SQLiteApp:
         except Exception as e:
             messagebox.showerror('Error', f'Error opening database: {str(e)}')
     
+    def connect_mysql_database(self):
+        try:
+            mysql_details = MySQLDatabase.get_connection_details()
+            if mysql_details:
+                self.conn = MySQLdb.connect(
+                    host=mysql_details['host'],
+                    user=mysql_details['user'],
+                    passwd=mysql_details['password'],
+                    db=mysql_details['database']
+                )
+                return True
+            return False
+        except MySQLdb.Error as e:
+            messagebox.showerror("MySQL Connection Error", f"Failed to connect to MySQL database: {e}")
+            return False
+
     def list_tables(self):
         try:
             if self.db_type == 'sqlite':
@@ -117,6 +136,10 @@ class SQLiteApp:
             elif self.db_type == 'jet':
                 cursor = self.conn.cursor()
                 cursor.execute("SELECT Name FROM MSysObjects WHERE Type=1 AND Flags=0")
+                return [table[0] for table in cursor.fetchall()]
+            elif self.db_type == 'mysql':
+                cursor = self.conn.cursor()
+                cursor.execute("SHOW TABLES")
                 return [table[0] for table in cursor.fetchall()]
             else:
                 messagebox.showerror('Error', 'Unsupported database type')
@@ -152,13 +175,16 @@ class SQLiteApp:
             elif ext == '.mvo':
                 self.db_type = 'mvo'
                 self.conn = MVOConnection(db_path)
+            elif ext == '.sql':
+                if self.connect_mysql_database():
+                    self.db_type = 'mysql'
             else:
                 raise ValueError('Unsupported database format')
                 
             self.root.title(f'Database Browser - {os.path.basename(db_path)}')
             
             # Get list of tables
-            tables = self.get_tables()
+            tables = self.list_tables()
             if not tables:
                 messagebox.showwarning('Warning', 'No tables found in the database')
                 return
