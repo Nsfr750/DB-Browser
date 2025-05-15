@@ -1,6 +1,18 @@
 # Database Browser
 
+[![Version](https://img.shields.io/badge/version-1.2.0--beta-blue.svg)](https://semver.org)
+
 A Python-based GUI application for browsing and exporting database files. This application supports multiple database formats, including SQLite, Microsoft Access, MVO, and MySQL databases, allowing users to view contents in a table format and export data to CSV files.
+
+## Version Information
+
+- **Current Version**: 1.2.0-beta
+- **Version Management**: Follows Semantic Versioning 2.0.0
+- **Version Details**: 
+  - Major: 1
+  - Minor: 2
+  - Patch: 0
+  - Qualifier: beta
 
 ## Features
 
