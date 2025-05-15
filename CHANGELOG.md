@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- Modular database handler system supporting multiple database types
+- Added support for PostgreSQL database connections
+- Simplified database connection and table browsing logic
+
 All notable changes to the Database Browser project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
