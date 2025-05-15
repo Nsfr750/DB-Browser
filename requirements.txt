@@ -1,17 +1,22 @@
-# These are part of Python's standard library
-# No additional installation required
-# Python 3.x required
+# Python Database Browser Requirements
+# Minimum Python version: 3.8
 
-# Standard Library Dependencies:
+# Standard Library Dependencies (No installation required):
 # - tkinter (GUI framework)
-# - sqlite3 (Database operations)
+# - sqlite3 (SQLite database operations)
 # - webbrowser (For sponsor links)
 # - csv (For data export)
+# - json (For configuration and data handling)
 
 # External Dependencies:
-# - pyodbc (ODBC database connectivity)
-pyodbc==0.9.5
-pyodbc>=4.0.39  # For MS Access/Jet DB support
-# MySQL database support
+# Database Connectivity
+pyodbc>=4.0.39  # MS Access/Jet OLEDB database support
 mysqlclient==2.2.1  # MySQL database connector
-# json is part of Python's standard library and does not require installation
+
+# Recommended Versions
+# - Python 3.8+
+# - pip 21.0+
+
+# Optional: Development and Testing
+# pytest>=7.0.0  # For unit testing
+# flake8>=4.0.0  # For code linting
