@@ -14,7 +14,7 @@ class About:
         title = ttk.Label(about_dialog, text='Database Browser', font=('Helvetica', 16, 'bold'))
         title.pack(pady=20)
 
-        version = ttk.Label(about_dialog, text='Version 1.0')
+        version = ttk.Label(about_dialog, text='Version 1.2.0')
         version.pack()
 
         description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite, Access (Jet DB), MVO, and MySQL databases.', justify=tk.CENTER)
