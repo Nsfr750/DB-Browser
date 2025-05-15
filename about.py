@@ -19,10 +19,10 @@ class About:
         version = ttk.Label(about_dialog, text=f'Version {get_version()}')
         version.pack()
 
-        description = ttk.Label(about_dialog, text='A simple and efficient tool for browsing\nand exporting SQLite, Access (Jet DB), MVO, and MySQL databases.', justify=tk.CENTER)
+        description = ttk.Label(about_dialog, text='A versatile database exploration tool supporting:\n- SQLite\n- MySQL\n- PostgreSQL\n- dBase\n- Legacy database formats', justify=tk.CENTER, wraplength=350)
         description.pack(pady=20)
 
-        copyright = ttk.Label(about_dialog, text=' 2025 Nsfr750')
+        copyright = ttk.Label(about_dialog, text=' 2025 Nsfr750 | Open Source Database Browser')
         copyright.pack(pady=10)
 
         ttk.Button(about_dialog, text='Close', command=about_dialog.destroy).pack(pady=20)
