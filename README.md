@@ -11,15 +11,17 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 ## 🚀 Features
 
 ### Supported Databases
-- 💾 SQLite (.db, .sqlite)
-- 📊 Microsoft Access (.mdb, .accdb)
-- 🗃️ MVO (Multiversion Object) (.mvo)
-- 🐬 MySQL (.sql)
+- 💾 SQLite (.db)
+- 🐬 MySQL
+- 🐘 PostgreSQL
+- 📊 Microsoft Access (Coming soon)
+- 🗃️ MVO (Legacy support)
 
 ### Key Capabilities
 - 📋 Browse and view database tables
 - 📤 Export table data to CSV
 - 🖥️ User-friendly graphical interface
+- 🔌 Modular database handler architecture
 - 🛡️ Robust error handling
 - 🌐 Cross-platform compatibility
 
