@@ -7,11 +7,11 @@ for the Database Browser project.
 
 # Version information follows Semantic Versioning 2.0.0 (https://semver.org/)
 VERSION_MAJOR = 1
-VERSION_MINOR = 2
+VERSION_MINOR = 3
 VERSION_PATCH = 0
 
 # Additional version qualifiers
-VERSION_QUALIFIER = 'beta'  # Could be 'alpha', 'beta', 'rc', or ''
+VERSION_QUALIFIER = 'beta.1'  # Could be 'alpha', 'beta', 'rc', or ''
 
 def get_version():
     """
@@ -33,14 +33,14 @@ def get_version_info():
     Provide a detailed version information dictionary.
     
     Returns:
-        dict: Comprehensive version information
+        dict: Version information dictionary
     """
     return {
+        'full_version': get_version(),
         'major': VERSION_MAJOR,
         'minor': VERSION_MINOR,
         'patch': VERSION_PATCH,
-        'qualifier': VERSION_QUALIFIER,
-        'full_version': get_version()
+        'qualifier': VERSION_QUALIFIER
     }
 
 def check_version_compatibility(min_version):
