@@ -1,9 +1,11 @@
 from app import SQLiteApp
 import tkinter as tk
+from version import get_version, get_version_info
 
 def main():
     root = tk.Tk()
-    root.title('Database Browser')
+    version_info = get_version_info()
+    root.title(f'Database Browser v{version_info["full_version"]}')
     root.geometry('800x600')  # Set initial window size
     
     app = SQLiteApp(root)
