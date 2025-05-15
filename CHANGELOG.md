@@ -1,11 +1,29 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.3.1-beta.1] - 2025-05-15
+
 ### Added
-- Modular database handler system supporting multiple database types
-- Added support for PostgreSQL database connections
+- Comprehensive database handler system supporting multiple database types
+- Support for MySQL network databases
+- Support for Microsoft Access databases (Jet OLEDB)
+- Support for Multiversion Object (MVO) databases
+- Support for PostgreSQL database connections
+- Enhanced database connection and error handling
+- Unified database querying and export interface
+
+### Improved
+- Logging system for database operations
+- Error tracking and reporting
+- Modular database handler architecture
 - Added support for dBase (.dbf, .db3) database files
 - Simplified database connection and table browsing logic
+- Updated About dialog to reflect new database support
+
+### Changed
+- Improved documentation and README
+- Enhanced version tracking
 
 All notable changes to the Database Browser project will be documented in this file.
 
