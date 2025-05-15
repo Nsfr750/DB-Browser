@@ -50,10 +50,11 @@ Run the application:
 python main.py
 ```
 
-### Supported Database Types
+### Supported Databases
 - SQLite (.db, .sqlite)
 - Microsoft Access (.mdb, .accdb)
-- Custom MVO databases (.mvo)
+- MVO Databases (.mvo)
+- MySQL (.sql)
 
 ## Contributing
 Contributions are welcome! Please submit pull requests or open issues.
