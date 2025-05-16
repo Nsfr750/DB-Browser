@@ -116,5 +116,4 @@ We follow [Semantic Versioning 2.0.0](https://semver.org/)
 - [ ] Expand database format support
 - [ ] Implement advanced query capabilities
 - [ ] Create comprehensive test suite
-- [ ] Develop plugin architecture
 - [ ] Improve cross-platform compatibility
