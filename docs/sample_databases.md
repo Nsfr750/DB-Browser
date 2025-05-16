@@ -38,17 +38,125 @@ To create a sample database:
   - File-based storage
   - No server required
   - ACID-compliant
+  - Sample data included
 
 #### MySQL Database
 - **File**: `sample_databases/sample_mysql.sql`
 - **Structure**: 
   ```sql
   CREATE TABLE employees (
-    empid INT AUTO_INCREMENT PRIMARY KEY,
+    empid SERIAL PRIMARY KEY,
     firstname VARCHAR(50),
     lastname VARCHAR(50),
     position VARCHAR(50),
     salary DECIMAL(10,2),
+    hiredate DATE
+  );
+  ```
+  ```sql
+  CREATE TABLE departments (
+    deptid SERIAL PRIMARY KEY,
+    deptname VARCHAR(50),
+    location VARCHAR(100)
+  );
+  ```
+- **Features**: 
+  - Server-based storage
+  - Auto-incrementing IDs
+  - Multiple tables
+  - Sample data included
+
+#### PostgreSQL Database
+- **File**: `sample_databases/sample_postgres.sql`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid SERIAL PRIMARY KEY,
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    position VARCHAR(50),
+    salary DECIMAL(10,2),
+    hiredate DATE
+  );
+  ```
+  ```sql
+  CREATE TABLE departments (
+    deptid SERIAL PRIMARY KEY,
+    deptname VARCHAR(50),
+    location VARCHAR(100)
+  );
+  ```
+- **Features**: 
+  - Server-based storage
+  - Auto-incrementing IDs
+  - Multiple tables
+  - Sample data included
+  - ACID-compliant
+  - JSON support
+
+#### Microsoft Access Database
+- **File**: `sample_databases/sample_access.mdb`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid AUTOINCREMENT PRIMARY KEY,
+    firstname TEXT,
+    lastname TEXT,
+    position TEXT,
+    salary CURRENCY,
+    hiredate DATE
+  );
+  ```
+  ```sql
+  CREATE TABLE departments (
+    deptid AUTOINCREMENT PRIMARY KEY,
+    deptname TEXT,
+    location TEXT
+  );
+  ```
+- **Features**: 
+  - File-based storage
+  - Multiple tables
+  - Sample data included
+  - Jet/ACE engine
+
+#### dBase Database
+- **File**: `sample_databases/sample_dbf.dbf`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid AUTOINCREMENT PRIMARY KEY,
+    firstname CHAR(50),
+    lastname CHAR(50),
+    position CHAR(50),
+    salary DECIMAL(10,2),
+    hiredate DATE
+  );
+  ```
+- **Features**: 
+  - File-based storage
+  - Fixed-width fields
+  - Sample data included
+  - Legacy compatibility
+
+#### MVO Database
+- **File**: `sample_databases/sample_mvo.mvo`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid PRIMARY KEY,
+    firstname TEXT,
+    lastname TEXT,
+    position TEXT,
+    salary DECIMAL(10,2),
+    hiredate DATE
+  );
+  ```
+- **Features**: 
+  - File-based storage
+  - Legacy support
+  - Sample data included
+  - Multi-value fields
     hiredate DATE
   );
   ```
