@@ -92,7 +92,11 @@ try:
         "database": "sample_db"
     }
     
-    with open("sample.sql", "w") as f:
+    # Create sample_databases directory if it doesn't exist
+    os.makedirs('sample_databases', exist_ok=True)
+    
+    # Save connection details to sample_databases directory
+    with open(os.path.join('sample_databases', 'sample_mysql.sql'), "w") as f:
         json.dump(connection_info, f, indent=2)
 
     print("Sample MySQL database created successfully!")
