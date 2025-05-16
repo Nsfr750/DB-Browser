@@ -12,9 +12,15 @@ DB-Browser/
 ├── app.py                  # Main application logic
 ├── version.py              # Version management
 ├── about.py                # About dialog implementation
+├── sponsor.py              # Sponsor system implementation
+├── sample_databases/       # Sample database creation scripts
+│   ├── create_sample_sqlite.py
+│   ├── create_sample_access.py
+│   └── create_sample_mvo.py
 │
 ├── mysql_db.py             # MySQL database handler
 ├── mvo_db.py               # MVO database handler
+├── postgres_db.py          # PostgreSQL database handler
 │
 └── requirements.txt        # Project dependencies
 ```
@@ -88,6 +94,106 @@ class NewDatabaseHandler(DatabaseHandler):
         # Close database connection
         pass
 ```
+
+### Sponsor System Integration
+
+The sponsor system is implemented in `sponsor.py` and provides:
+
+1. Integration with multiple sponsorship platforms
+   - GitHub Sponsors
+   - Patreon
+   - PayPal
+   - Discord Community
+
+2. Sponsor information display
+   - Sponsor profiles
+   - Support links
+   - Contribution tiers
+
+3. Integration points
+   - Help menu → Sponsors
+   - About dialog
+   - Application footer
+
+### Sample Database Scripts
+
+The project includes sample database creation scripts in Python:
+
+1. `create_sample_sqlite.py`
+   - Creates a sample SQLite database
+   - Includes Employees and Departments tables
+   - Demonstrates basic SQLite operations
+
+2. `create_sample_access.py`
+   - Creates a sample Microsoft Access database
+   - Uses Jet OLEDB 3.51 driver
+   - Requires Microsoft Access Database Engine
+
+3. `create_sample_mvo.py`
+   - Creates a sample MVO database
+   - JSON-based storage
+   - Demonstrates MVO database structure
+
+### Keyboard Shortcuts
+
+The application supports the following keyboard shortcuts:
+
+- Ctrl+O: Open Database
+- Ctrl+E: Export to CSV
+- Ctrl+Q: Quit Application
+- F1: Show About Dialog
+- Ctrl+S: Show Sponsors
+
+### Testing
+
+The project includes a comprehensive test suite in the `tests/` directory. To run tests:
+
+```bash
+pytest tests/
+```
+
+### Code Quality
+
+To check code quality:
+
+```bash
+flake8 .
+```
+
+1. Integration with multiple sponsorship platforms
+   - GitHub Sponsors
+   - Patreon
+   - PayPal
+   - Discord Community
+
+2. Sponsor information display
+   - Sponsor profiles
+   - Support links
+   - Contribution tiers
+
+3. Integration points
+   - Help menu → Sponsors
+   - About dialog
+   - Application footer
+
+### Sample Database Scripts
+
+The project includes sample database creation scripts in Python:
+
+1. `create_sample_sqlite.py`
+   - Creates a sample SQLite database
+   - Includes Employees and Departments tables
+   - Demonstrates basic SQLite operations
+
+2. `create_sample_access.py`
+   - Creates a sample Microsoft Access database
+   - Uses Jet OLEDB 3.51 driver
+   - Requires Microsoft Access Database Engine
+
+3. `create_sample_mvo.py`
+   - Creates a sample MVO database
+   - JSON-based storage
+   - Demonstrates MVO database structure
 
 ### Linting
 
