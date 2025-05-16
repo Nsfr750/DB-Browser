@@ -4,6 +4,7 @@ import csv
 import os
 from database_handlers import get_database_handler, DatabaseHandler
 from sponsor import Sponsor
+from help import HelpSystem
 
 class SQLiteApp:
     def __init__(self, root, sponsor=None):
@@ -14,6 +15,7 @@ class SQLiteApp:
         self.conn = None
         self.current_table = None
         self.db_handler = None
+        self.help_system = HelpSystem(self.root)
 
     def ask_table_selection(self, tables):
         dialog = tk.Toplevel(self.root)
@@ -63,6 +65,7 @@ class SQLiteApp:
         # Create Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label='Help', menu=help_menu)
+        help_menu.add_command(label='Show Help', command=self.show_help)
         help_menu.add_command(label='About', command=self.show_about, accelerator='F1')
         help_menu.add_command(label='Sponsors', command=self.show_sponsors)
 
@@ -301,19 +304,23 @@ class SQLiteApp:
         except Exception as e:
             messagebox.showerror('Export Error', str(e))
 
-    def show_about(self):
-        from about import About
-        About.show_about(self.root)
+    def show_help(self):
+        """Show the help system"""
+        self.help_system.show_help()
 
-    def show_sponsors(self):
-        try:
-            from sponsor import Sponsor
-            sponsor = Sponsor(self.root)
-            sponsor.show_sponsor()
-        except ImportError:
-            messagebox.showwarning('Sponsors', 'Sponsor information is not available.')
-        except Exception as e:
-            messagebox.showerror('Error', f'Error loading sponsor information: {str(e)}')
+    def show_about(self):
+        """Show about dialog"""
+        about_text = """
+Database Browser
+Version: 1.3.1-beta.1
+
+A cross-platform database browser application.
+
+License: MIT
+
+Source Code: https://github.com/Nsfr750/DB-Browser
+        """
+        messagebox.showinfo("About Database Browser", about_text)
 
     def close(self):
         if self.db_handler:
