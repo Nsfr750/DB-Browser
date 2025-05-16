@@ -317,9 +317,7 @@ Version: 1.3.1-beta.1
 
 A cross-platform database browser application.
 
-License: MIT
-
-Source Code: https://github.com/Nsfr750/DB-Browser
+© 2025 Nsfr750
         """
         messagebox.showinfo("About Database Browser", about_text)
 
