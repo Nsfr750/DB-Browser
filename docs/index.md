@@ -19,6 +19,7 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
   - Unified interface across database types
   - Automatic handler selection
   - Consistent method signatures
+  - See [Database Handlers](database_handlers.md) for more details
 
 - Database Operations
   - Browse database tables
@@ -36,6 +37,94 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - Cross-platform compatibility
 - Extensible architecture
 - Version: 1.3.1-beta.1
+
+## Documentation
+
+For more detailed information, see:
+
+- [Database Handlers](database_handlers.md) - Detailed information about database handler implementations
+- [Development Guide](development.md) - Comprehensive guide for developers
+- [Sample Databases](sample_databases.md) - Information about creating and using sample databases
+- [Change Log](../CHANGELOG.md) - Complete history of changes and updates
+
+## Installation
+
+### Prerequisites
+- Python 3.8+
+- Required dependencies:
+  ```
+  pip install pyodbc mysqlclient psycopg2-binary
+  ```
+
+### Configuration
+Database connections can be configured using:
+- File paths for local databases
+- Connection parameters for network databases
+
+#### Example Connection
+```python
+from database_handlers import get_database_handler
+
+# SQLite Connection
+handler = get_database_handler(db_path='example.db')
+
+# MySQL Connection
+handler = get_database_handler(connection_params={
+    'type': 'mysql',
+    'host': 'localhost',
+    'user': 'username',
+    'password': 'password',
+    'database': 'mydb'
+})
+```
+
+### Dependencies
+
+Install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+### Running the Application
+
+```bash
+python main.py
+```
+
+### Supported Database Formats
+
+1. **SQLite** (.db, .sqlite)
+   - Lightweight, serverless database
+   - Direct file-based storage
+   - See [SQLite Documentation](database_handlers.md#sqlite) for details
+
+2. **MySQL** (.sql)
+   - Requires database connection details
+   - Supports remote and local MySQL databases
+   - See [MySQL Documentation](database_handlers.md#mysql) for details
+
+3. **PostgreSQL** (.psql)
+   - Requires database connection details
+   - Supports remote and local PostgreSQL databases
+   - See [PostgreSQL Documentation](database_handlers.md#postgresql) for details
+
+4. **Microsoft Access** (.mdb, .accdb)
+   - Requires Microsoft Access drivers
+   - File-based database
+   - See [Access Documentation](database_handlers.md#access) for details
+
+5. **Multiversion Object** (.mvo)
+   - Legacy database format
+   - Multi-value field support
+   - See [MVO Documentation](database_handlers.md#mvo) for details
+
+6. **dBase** (.dbf, .db3)
+   - Legacy database format
+   - Fixed-width fields
+   - See [dBase Documentation](database_handlers.md#dbase) for details
 
 ## Installation
 
