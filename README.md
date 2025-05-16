@@ -12,11 +12,11 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 
 - Database Support
   - SQLite (.db)
-  - MySQL (network)
-  - PostgreSQL (network)
-  - Microsoft Access (.mdb, .accdb)
-  - MVO (.mvo)
-  - dBase (.dbf, .db3)
+  - MySQL (network) - Requires MySQL server
+  - PostgreSQL (network) - Requires PostgreSQL server
+  - Microsoft Access (.mdb, .accdb) - Requires Microsoft Access drivers
+  - MVO (.mvo) - Legacy support
+  - dBase (.dbf, .db3) - Legacy support
   - Plugin system for additional database types
 
 - Data Operations
@@ -25,10 +25,12 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
   - Import and export data
   - Create sample databases
   - Export to CSV
+  - Comprehensive error handling
 
 - User Interface
   - Modern, user-friendly graphical interface
   - Organized sample databases
+  - Comprehensive help system (Ctrl+H)
   - Sponsor integration system
   - Cross-platform compatibility
 
@@ -99,6 +101,7 @@ For detailed documentation, see:
 - [Sample Databases](Docs/sample_databases.md)
 - [Development Guide](Docs/development.md)
 - [Change Log](CHANGELOG.md)
+- [Online Documentation](https://github.com/Nsfr750/DB-Browser/blob/main/docs/index.md)
 
 ## 📝 License
 
@@ -111,6 +114,28 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+1. Database Connection Problems
+   - Verify database server is running
+   - Check connection parameters
+   - Ensure proper permissions
+   - See [Troubleshooting Guide](Docs/database_handlers.md#troubleshooting)
+
+2. File Access Issues
+   - Check file permissions
+   - Verify file path
+   - Ensure file exists
+   - See [File Access Guide](Docs/database_handlers.md#file-access)
+
+3. Query Errors
+   - Check SQL syntax
+   - Verify table and column names
+   - Check data types
+   - See [Query Guide](Docs/database_handlers.md#query-execution)
    ```
 
 ## Additional Requirements for Specific Database Types
