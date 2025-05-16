@@ -10,6 +10,19 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 
 ## 🚀 Features
 
+- Browse and query multiple database formats:
+  - SQLite
+  - Microsoft Access
+  - MySQL
+  - PostgreSQL
+  - MVO
+  - dBase
+- View table structure and data
+- Execute SQL queries
+- Import and export data
+- Create sample databases for testing
+- Organized sample databases in dedicated directory.
+
 ### Supported Databases
 - 💾 SQLite (.db)
 - 🐬 MySQL
@@ -27,14 +40,6 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - 🌐 Cross-platform compatibility
 - 💡 Sponsor integration system
 - 🏷️ Version: 1.3.1-beta.1
-
-### Key Capabilities
-- 📋 Browse and view database tables
-- 📤 Export table data to CSV
-- 🖥️ User-friendly graphical interface
-- 🔌 Modular database handler architecture
-- 🛡️ Robust error handling
-- 🌐 Cross-platform compatibility
 
 ### Database Handler Usage
 
@@ -65,21 +70,19 @@ handler.close()
 
 ## 📦 Installation
 
-### Prerequisites
-- Python 3.8+
-- pip 21.0+
+1. Install Python 3.8 or higher
+2. Install required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Setup
-1. Clone the repository
-```bash
-git clone https://github.com/yourusername/DB-Browser.git
-cd DB-Browser
-```
+## Additional Requirements for Specific Database Types
 
-2. Install dependencies
-```bash
-pip install -r requirements.txt
-```
+- **MySQL**: Install `mysql-connector-python`
+- **PostgreSQL**: Install `psycopg2`
+- **Microsoft Access**: Install Microsoft Access Database Engine from: https://www.microsoft.com/en-us/download/details.aspx?id=54920
+- **dBase**: Install `dbf` package
+- **MVO**: No additional requirements
 
 ## 🖱️ Usage
 
@@ -142,12 +145,8 @@ For issues and feature requests, please use the GitHub Issues section.
 ## 💡 Acknowledgments
 
 - Python Community
-- Open Source Contributors1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-   
+- Open Source Contributors
+
 ## 🤝 Support the Project
 
 You can support this project through various platforms:
