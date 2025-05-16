@@ -9,9 +9,14 @@
   - Create sample SQLite databases
   - Create sample Microsoft Access databases
   - Create sample MVO databases
+  - Create sample MySQL databases
+  - Create sample PostgreSQL databases
 - Sponsor integration system
   - Access sponsor information from application
   - Support through multiple platforms
+- Plugin system
+  - Modular architecture for extensible functionality
+  - Support for database handlers, UI components, and export plugins
 - Support for Microsoft Access databases (.mdb, .accdb)
 - Support for PostgreSQL database connections
 - Enhanced database connection and error handling
@@ -31,12 +36,17 @@
 - Updated About dialog to reflect new database support
 - Enhanced keyboard shortcuts
 - Improved documentation structure
+- Better error handling for database connections
+- More robust plugin initialization
 
 ### Changed
 - Improved documentation and README
 - Enhanced version tracking
 - Updated database file extensions in documentation
 - Added sponsor system integration
+- Refactored database handler initialization
+- Updated plugin manager to accept root window parameter
+- Modified SQLiteApp to handle plugin manager integration
 
 All notable changes to the Database Browser project will be documented in this file.
 
