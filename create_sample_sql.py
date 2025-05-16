@@ -86,20 +86,25 @@ try:
 
     # Create a JSON file with connection details
     connection_info = {
-        "type": "mysql",
+        "type": "postgresql",
         "host": "localhost",
-        "user": "mysql",
-        "password": "mysql",
+        "user": "postgres",
+        "password": "postgres",
         "database": "sample_db"
     }
     
-    with open("sample.sql", "w") as f:
+    # Create sample_databases directory if it doesn't exist
+    os.makedirs('sample_databases', exist_ok=True)
+    
+    # Save connection details to sample_databases directory
+    with open(os.path.join('sample_databases', 'sample_postgres.sql'), "w") as f:
         json.dump(connection_info, f, indent=2)
 
     print("Sample PostgreSQL database created successfully!")
     print("Created tables:")
     print("- employees")
     print("- departments")
+    print("Connection details saved to sample_databases directory")
     print("Connection details saved to sample.sql")
     print("You can now open this database in the Database Browser application.")
 
