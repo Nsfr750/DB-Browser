@@ -16,6 +16,11 @@
 - Support for PostgreSQL database connections
 - Enhanced database connection and error handling
 - Unified database querying and export interface
+- Support for dBase database format
+- Support for MySQL database format
+- Support for PostgreSQL database format
+- Sample database creation menu with all supported database types
+- Organized sample databases in dedicated `sample_databases` directory
 
 ### Improved
 - Logging system for database operations
