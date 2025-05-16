@@ -6,19 +6,21 @@ import os
 import mysql.connector
 import json
 
-# Sample data for Employees table
-employees_data = [
-    (1, "John", "Doe", "Manager", 75000.00, "2022-01-15"),
-    (2, "Jane", "Smith", "Developer", 65000.00, "2022-03-20"),
-    (3, "Bob", "Johnson", "Analyst", 60000.00, "2022-05-10"),
-    (4, "Alice", "Williams", "Designer", 62000.00, "2022-07-05"),
-    (5, "Charlie", "Brown", "Tester", 58000.00, "2022-09-12")
-]
+def create_sample_mysql():
+    """Create a sample MySQL database with sample data."""
+    # Sample data for Employees table
+    employees_data = [
+        (1, "John", "Doe", "Manager", 75000.00, "2022-01-15"),
+        (2, "Jane", "Smith", "Developer", 65000.00, "2022-03-20"),
+        (3, "Bob", "Johnson", "Analyst", 60000.00, "2022-05-10"),
+        (4, "Alice", "Williams", "Designer", 62000.00, "2022-07-05"),
+        (5, "Charlie", "Brown", "Tester", 58000.00, "2022-09-12")
+    ]
 
-# Sample data for Departments table
-departments_data = [
-    (1, "IT", "Building A - Floor 2"),
-    (2, "HR", "Building B - Floor 1"),
+    # Sample data for Departments table
+    departments_data = [
+        (1, "IT", "Building A - Floor 2"),
+        (2, "HR", "Building B - Floor 1"),
     (3, "Finance", "Building A - Floor 3"),
     (4, "Marketing", "Building C - Floor 1"),
     (5, "Sales", "Building C - Floor 2")
@@ -43,7 +45,7 @@ try:
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="root",
+        password="22243",
         database="sample_db"
     )
     cursor = conn.cursor()
@@ -88,7 +90,7 @@ try:
         "type": "mysql",
         "host": "localhost",
         "user": "root",
-        "password": "root",
+        "password": "22243",
         "database": "sample_db"
     }
     
