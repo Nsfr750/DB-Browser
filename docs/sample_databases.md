@@ -1,77 +1,214 @@
-# Sample Databases
+# 📊 Sample Databases
 
-This document explains how to create and use sample databases in the DB Browser.
+This document provides detailed information about creating and using sample databases in DB Browser.
 
-## Creating Sample Databases
+## 📋 Overview
 
-The application provides a "Create Sample Database" menu that allows you to create sample databases for testing and development purposes. All sample databases are created in the `sample_databases` directory.
+Sample databases are pre-configured databases that contain example data for testing and development purposes. They are created in the `sample_databases` directory and can be used to:
+- Test database operations
+- Learn database structure
+- Demonstrate features
+- Develop queries
+
+## 🛠️ Creating Sample Databases
+
+To create a sample database:
+
+1. Open DB Browser
+2. Go to "File" -> "Create Sample Database"
+3. Select your desired database type
+4. Click "Create"
 
 ### Available Database Types
 
-1. **SQLite Database**
-   - Creates a sample SQLite database file
-   - Tables: Employees, Departments
-   - Location: `sample_databases/sample_sqlite.db`
+#### SQLite Database
+- **File**: `sample_databases/sample_sqlite.db`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid INTEGER PRIMARY KEY,
+    firstname TEXT,
+    lastname TEXT,
+    position TEXT,
+    salary REAL,
+    hiredate DATE
+  );
+  ```
+- **Features**: 
+  - File-based storage
+  - No server required
+  - ACID-compliant
 
-2. **MySQL Database**
-   - Creates a MySQL database with connection details
-   - Tables: Employees, Departments
-   - Location: `sample_databases/sample_mysql.sql`
-   - Requires MySQL server installation
+#### MySQL Database
+- **File**: `sample_databases/sample_mysql.sql`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid INT AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    position VARCHAR(50),
+    salary DECIMAL(10,2),
+    hiredate DATE
+  );
+  ```
+- **Requirements**: 
+  - MySQL server
+  - `mysql-connector-python` package
+  - Default credentials: root/root
 
-3. **PostgreSQL Database**
-   - Creates a PostgreSQL database with connection details
-   - Tables: Employees, Departments
-   - Location: `sample_databases/sample_postgres.sql`
-   - Requires PostgreSQL server installation
+#### PostgreSQL Database
+- **File**: `sample_databases/sample_postgres.sql`
+- **Structure**: 
+  ```sql
+  CREATE TABLE employees (
+    empid SERIAL PRIMARY KEY,
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    position VARCHAR(50),
+    salary DECIMAL(10,2),
+    hiredate DATE
+  );
+  ```
+- **Requirements**: 
+  - PostgreSQL server
+  - `psycopg2` package
+  - Default credentials: postgres/postgres
 
-4. **Microsoft Access Database**
-   - Creates a sample Access database
-   - Tables: Employees, Departments
-   - Location: `sample_databases/sample.accdb`
-   - Requires Microsoft Access Database Engine
+#### Microsoft Access Database
+- **File**: `sample_databases/sample.accdb`
+- **Structure**: 
+  - Employees table with same fields as above
+  - Departments table with deptid, deptname, location
+- **Requirements**: 
+  - Microsoft Access Database Engine
+  - Windows operating system
 
-5. **MVO Database**
-   - Creates a sample MVO database
-   - Tables: Employees, Departments
-   - Location: `sample_databases/sample.mvo`
-   - JSON-based storage
+#### MVO Database
+- **File**: `sample_databases/sample.mvo`
+- **Structure**: 
+  ```json
+  {
+    "employees": [
+      {
+        "empid": 1,
+        "firstname": "John",
+        "lastname": "Doe",
+        "position": "Manager",
+        "salary": 75000.00,
+        "hiredate": "2022-01-15"
+      }
+    ],
+    "departments": [
+      {
+        "deptid": 1,
+        "deptname": "IT",
+        "location": "Building A - Floor 2"
+      }
+    ]
+  }
+  ```
+- **Features**: 
+  - JSON-based storage
+  - Schema-less design
+  - Easy modification
 
-6. **dBase Database**
-   - Creates a sample dBase database
-   - Tables: Employees, Departments
-   - Location: `sample_databases/sample.dbf`
-   - Legacy database format
+#### dBase Database
+- **File**: `sample_databases/sample.dbf`
+- **Structure**: 
+  - Employees table with fixed record length
+  - Departments table with deptid, deptname, location
+- **Features**: 
+  - Legacy compatibility
+  - Fixed record format
+  - Simple structure
 
-## Using Sample Databases
+## 📊 Sample Data
 
-1. Open the main application window
-2. Click on "File" -> "Create Sample Database"
-3. Select the desired database type
-4. Click "Create"
-5. The database will be created in the `sample_databases` directory
-6. You can then open the created database using the "Open Database" menu option
-
-## Sample Data Structure
-
-All sample databases contain two tables with the following structure:
+All sample databases contain the following test data:
 
 ### Employees Table
-- empid (Primary Key)
-- firstname (VARCHAR)
-- lastname (VARCHAR)
-- position (VARCHAR)
-- salary (DECIMAL)
-- hiredate (DATE)
+| empid | firstname | lastname | position | salary | hiredate |
+|-------|-----------|----------|----------|--------|----------|
+| 1     | John      | Doe      | Manager  | 75000  | 2022-01-15 |
+| 2     | Jane      | Smith    | Developer| 65000  | 2022-03-20 |
+| 3     | Bob       | Johnson  | Analyst  | 60000  | 2022-05-10 |
 
 ### Departments Table
-- deptid (Primary Key)
-- deptname (VARCHAR)
-- location (VARCHAR)
+| deptid | deptname | location |
+|--------|----------|----------|
+| 1      | IT       | Building A - Floor 2 |
+| 2      | HR       | Building B - Floor 1 |
+| 3      | Finance  | Building A - Floor 3 |
 
-## Additional Notes
+## 📚 Using Sample Databases
 
-- Each sample database contains test data for demonstration purposes
-- The `sample_databases` directory is automatically created if it doesn't exist
-- Connection details for MySQL and PostgreSQL databases are saved in .sql files
-- You can safely delete the `sample_databases` directory to start fresh
+1. **Opening a Sample Database**:
+   - Go to "File" -> "Open Database"
+   - Navigate to `sample_databases` directory
+   - Select the desired database file
+
+2. **Viewing Data**:
+   - Tables are automatically loaded
+   - Browse through records
+   - View table structure
+
+3. **Executing Queries**:
+   - Use the SQL editor
+   - Run SELECT, INSERT, UPDATE queries
+   - View query results
+
+## 🛠️ Maintenance
+
+### Directory Management
+- The `sample_databases` directory is created automatically
+- You can safely delete it to start fresh
+- All sample databases are recreated on demand
+
+### Database Updates
+- Sample data is consistent across all databases
+- Structure remains the same for compatibility
+- New versions may add additional sample data
+
+### Best Practices
+1. **Backup**: 
+   - Regularly backup the `sample_databases` directory
+   - Keep copies of important test data
+
+2. **Testing**: 
+   - Use sample databases for testing new features
+   - Keep production data separate
+   - Test queries before applying to real data
+
+3. **Development**: 
+   - Use sample data for development
+   - Test database operations
+   - Validate queries
+
+## ❓ Troubleshooting
+
+### Common Issues
+
+#### Database Creation
+- **Error**: "Database engine not found"
+  - Solution: Install required database engine
+  - Example: MySQL Connector for MySQL databases
+
+- **Error**: "Permission denied"
+  - Solution: Run as administrator
+  - Check file permissions
+
+#### Connection Issues
+- **Error**: "Connection refused"
+  - Solution: Start database server
+  - Check connection settings
+
+- **Error**: "Authentication failed"
+  - Solution: Verify credentials
+  - Check database permissions
+
+## 📚 Further Reading
+- [Database Types](database_types.md)
+- [SQL Queries](sql_queries.md)
+- [Data Import/Export](data_import_export.md)
+- [Troubleshooting](troubleshooting.md)
