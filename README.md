@@ -1,6 +1,6 @@
 # Database Browser
 
-[![Version](https://img.shields.io/badge/version-1.2.0--beta-blue.svg)](https://semver.org)
+[![Version](https://img.shields.io/badge/version-1.3.1--beta.1-blue.svg)](https://semver.org)
 [![Python Versions](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -15,8 +15,18 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - 🐬 MySQL
 - 🐘 PostgreSQL
 - 📊 dBase (.dbf, .db3)
-- 📊 Microsoft Access (Coming soon)
+- 📊 Microsoft Access (.mdb, .accdb)
 - 🗃️ MVO (Legacy support)
+
+### Key Capabilities
+- 📋 Browse and view database tables
+- 📤 Export table data to CSV
+- 🖥️ User-friendly graphical interface
+- 🔌 Modular database handler architecture
+- 🛡️ Robust error handling
+- 🌐 Cross-platform compatibility
+- 💡 Sponsor integration system
+- 🏷️ Version: 1.3.1-beta.1
 
 ### Key Capabilities
 - 📋 Browse and view database tables
@@ -83,6 +93,7 @@ python main.py
 For detailed information, check our documentation:
 - [User Guide](docs/index.md)
 - [Development Guide](docs/development.md)
+- [Changelog](CHANGELOG.md)
 
 ## 🔧 Development
 
