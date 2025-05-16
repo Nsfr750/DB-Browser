@@ -6,92 +6,67 @@
 
 ## 🌟 Overview
 
-Database Browser is a powerful, cross-platform GUI application designed to simplify database exploration and data management across multiple database formats.
+Database Browser is a powerful, cross-platform GUI application designed to simplify database exploration and data management across multiple database formats. It features a modular plugin system that allows for easy extension and customization.
 
 ## 🚀 Features
 
-- Browse and query multiple database formats:
-  - SQLite
-  - Microsoft Access
-  - MySQL
-  - PostgreSQL
-  - MVO
-  - dBase
-- View table structure and data
-- Execute SQL queries
-- Import and export data
-- Create sample databases for testing
-- Organized sample databases in dedicated directory
-- Plugin system for extensibility
-- Sponsor integration system
-- Cross-platform support
+- Database Support
+  - SQLite (.db)
+  - MySQL (network)
+  - PostgreSQL (network)
+  - Microsoft Access (.mdb, .accdb)
+  - MVO (.mvo)
+  - dBase (.dbf, .db3)
+  - Plugin system for additional database types
 
-### Supported Databases
-- 💾 SQLite (.db)
-- 🐬 MySQL
-- 🐘 PostgreSQL
-- 📊 dBase (.dbf, .db3)
-- 📊 Microsoft Access (.mdb, .accdb)
-- 🗃️ MVO (Legacy support)
+- Data Operations
+  - View table structure and data
+  - Execute SQL queries
+  - Import and export data
+  - Create sample databases
+  - Export to CSV
 
-### Key Capabilities
-- 📋 Browse and view database tables
-- 📤 Export table data to CSV
-- 🖥️ User-friendly graphical interface
-- 🔌 Modular database handler architecture
-- 🛡️ Robust error handling
-- 🌐 Cross-platform compatibility
-- 💡 Sponsor integration system
-- 🔍 Plugin system for extensibility
-- 🏷️ Version: 1.3.1-beta.1
+- User Interface
+  - Modern, user-friendly graphical interface
+  - Organized sample databases
+  - Sponsor integration system
+  - Cross-platform compatibility
+
+- Development Features
+  - Plugin system for extensibility
+  - Comprehensive error handling
+  - Version: 1.3.1-beta.1
 
 ### Database Handler Usage
 
-The `get_database_handler()` function in `database_handlers.py` provides a unified interface for working with different database types:
+The `get_database_handler()` function provides a unified interface for working with different database types. See [Database Handlers](Docs/database_handlers.md) for full documentation.
 
 ```python
 from database_handlers import get_database_handler
 
-# For file-based databases
-# For file-based databases, pass the full path to the database file
-handler = get_database_handler('path/to/database.db')
+# File-based database (SQLite)
+sqlite_handler = get_database_handler(db_path='example.db')
+sqlite_handler.connect()
 
-# For server-based databases (MySQL, PostgreSQL), pass connection parameters
-connection_params = {
-    'type': 'mysql',
-    'host': 'localhost',
-    'user': 'username',
-    'password': 'password',
-    'database': 'dbname'
-}
-handler = get_database_handler(connection_params)
-
-# Common operations
-handler.connect()
-for table in handler.get_tables():
-    print(f"Table: {table}")
-    print("Columns:", handler.get_columns(table))
-    print("Data:", handler.get_data(table))
-
-handler.disconnect()``
-handler = get_database_handler(db_path='example.db')
-
-# For network databases
-handler = get_database_handler(connection_params={
+# Network database (MySQL)
+mysql_params = {
     'type': 'mysql',
     'host': 'localhost',
     'user': 'username',
     'password': 'password',
     'database': 'mydb'
-})
+}
+mysql_handler = get_database_handler(connection_params=mysql_params)
+mysql_handler.connect()
 
-# Common methods
-handler.connect()
-tables = handler.get_tables()
-results = handler.execute_query('SELECT * FROM mytable')
-handler.export_to_csv('mytable', 'output.csv')
-handler.close()
-```
+# Common operations
+handler.get_tables()        # List all tables
+handler.get_columns('table') # Get table structure
+handler.get_data('table')    # Get table data
+handler.execute_query('SELECT * FROM table')  # Execute query
+handler.export_to_csv('table', 'output.csv')  # Export to CSV
+handler.close()                              # Close connection
+``
 
 ## 📦 Installation
 
@@ -99,6 +74,43 @@ handler.close()
 2. Install required packages:
    ```bash
    pip install -r requirements.txt
+   ```
+
+## 🛠️ Development Setup
+
+For developers:
+
+1. Clone the repository
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install development dependencies:
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+## 📚 Documentation
+
+For detailed documentation, see:
+
+- [Database Handlers](Docs/database_handlers.md)
+- [Sample Databases](Docs/sample_databases.md)
+- [Development Guide](Docs/development.md)
+- [Change Log](CHANGELOG.md)
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
    ```
 
 ## Additional Requirements for Specific Database Types
