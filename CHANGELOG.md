@@ -2,13 +2,17 @@
 
 ## [Unreleased]
 
-## [1.3.1-beta.1] - 2025-05-15
+## [1.3.1-beta.1] - 2025-05-16
 
 ### Added
-- Comprehensive database handler system supporting multiple database types
-- Support for MySQL network databases
-- Support for Microsoft Access databases (Jet OLEDB)
-- Support for Multiversion Object (MVO) databases
+- Sample database creation tool
+  - Create sample SQLite databases
+  - Create sample Microsoft Access databases
+  - Create sample MVO databases
+- Sponsor integration system
+  - Access sponsor information from application
+  - Support through multiple platforms
+- Support for Microsoft Access databases (.mdb, .accdb)
 - Support for PostgreSQL database connections
 - Enhanced database connection and error handling
 - Unified database querying and export interface
@@ -20,10 +24,14 @@
 - Added support for dBase (.dbf, .db3) database files
 - Simplified database connection and table browsing logic
 - Updated About dialog to reflect new database support
+- Enhanced keyboard shortcuts
+- Improved documentation structure
 
 ### Changed
 - Improved documentation and README
 - Enhanced version tracking
+- Updated database file extensions in documentation
+- Added sponsor system integration
 
 All notable changes to the Database Browser project will be documented in this file.
 
