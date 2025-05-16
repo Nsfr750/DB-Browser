@@ -1,3 +1,4 @@
+from re import S
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import csv
@@ -65,9 +66,9 @@ class SQLiteApp:
         # Create Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label='Help', menu=help_menu)
-        help_menu.add_command(label='Show Help', command=self.show_help)
-        help_menu.add_command(label='About', command=self.show_about, accelerator='F1')
-        help_menu.add_command(label='Sponsors', command=self.show_sponsors)
+        help_menu.add_command(label='About', command=self.show_about)
+        help_menu.add_command(label='Show Help', command=self.show_help, accelerator='(Ctrl+H')
+        help_menu.add_command(label='Sponsors', command=self.show_sponsors, accelerator='(Ctrl+S')
 
     def show_sponsors(self):
         if self.sponsor:
@@ -179,7 +180,7 @@ class SQLiteApp:
         self.root.bind('<Control-o>', lambda e: self.open_database())
         self.root.bind('<Control-e>', lambda e: self.export_to_csv())
         self.root.bind('<Control-q>', lambda e: self.root.quit())
-        self.root.bind('<F1>', lambda e: self.show_about())
+        self.root.bind('<Control-h>', lambda e: self.show_help())
         self.root.bind('<Control-s>', lambda e: self.show_sponsors())
 
     def open_database(self):
