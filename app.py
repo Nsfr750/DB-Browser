@@ -74,7 +74,7 @@ class SQLiteApp:
         """Show dialog to create sample databases"""
         dialog = tk.Toplevel(self.root)
         dialog.title('Create Sample Database')
-        dialog.geometry('400x300')
+        dialog.geometry('400x350')  # Increased height to accommodate more options
         dialog.transient(self.root)
         dialog.grab_set()
 
@@ -97,8 +97,11 @@ class SQLiteApp:
         dbase_radio = ttk.Radiobutton(frame, text="dBase Database", variable=self.db_type, value='dbase')
         dbase_radio.pack(anchor='w', pady=5)
         
-        sql_radio = ttk.Radiobutton(frame, text="MySQL Database", variable=self.db_type, value='sql')
-        sql_radio.pack(anchor='w', pady=5)
+        mysql_radio = ttk.Radiobutton(frame, text="MySQL Database", variable=self.db_type, value='mysql')
+        mysql_radio.pack(anchor='w', pady=5)
+        
+        postgres_radio = ttk.Radiobutton(frame, text="PostgreSQL Database", variable=self.db_type, value='postgres')
+        postgres_radio.pack(anchor='w', pady=5)
 
         # Add description labels
         desc_frame = ttk.Frame(frame)
@@ -131,7 +134,9 @@ class SQLiteApp:
             self.desc_label.config(text="Create a sample MVO database with JSON-based storage.")
         elif db_type == 'dbase':
             self.desc_label.config(text="Create a sample dBase database with Employees and Departments tables.")
-        elif db_type == 'sql':
+        elif db_type == 'mysql':
+            self.desc_label.config(text="Create a sample MySQL database with Employees and Departments tables.")
+        elif db_type == 'postgres':
             self.desc_label.config(text="Create a sample PostgreSQL database with Employees and Departments tables.")
 
     def create_selected_database(self, dialog):
@@ -145,7 +150,8 @@ class SQLiteApp:
                 'access': 'create_sample_access.py',
                 'mvo': 'create_sample_mvo.py',
                 'dbase': 'create_sample_dbase.py',
-                'sql': 'create_sample_sql.py'
+                'mysql': 'create_sample_mysql.py',
+                'postgres': 'create_sample_sql.py'
             }.get(db_type)
 
             if not script_path:
