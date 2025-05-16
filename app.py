@@ -56,6 +56,8 @@ class SQLiteApp:
         file_menu.add_command(label='Open Database', command=self.open_database, accelerator='Ctrl+O')
         file_menu.add_command(label='Export to CSV', command=self.export_to_csv, accelerator='Ctrl+E')
         file_menu.add_separator()
+        file_menu.add_command(label='Create Sample Database', command=self.create_sample_database)
+        file_menu.add_separator()
         file_menu.add_command(label='Exit', command=self.root.quit, accelerator='Ctrl+Q')
 
         # Create Help menu
@@ -68,26 +70,85 @@ class SQLiteApp:
         if self.sponsor:
             self.sponsor.show_sponsor()
 
-        # Create Treeview with status bar
-        self.tree_frame = ttk.Frame(self.root)
-        self.tree_frame.pack(fill=tk.BOTH, expand=True)
+    def create_sample_database(self):
+        """Show dialog to create sample databases"""
+        dialog = tk.Toplevel(self.root)
+        dialog.title('Create Sample Database')
+        dialog.geometry('400x300')
+        dialog.transient(self.root)
+        dialog.grab_set()
 
-        self.tree = ttk.Treeview(self.tree_frame)
-        self.tree.pack(fill=tk.BOTH, expand=True)
+        # Create frame for database options
+        frame = ttk.Frame(dialog)
+        frame.pack(padx=10, pady=10, fill='both', expand=True)
 
-        # Add scrollbars
-        vsb = ttk.Scrollbar(self.tree_frame, orient="vertical", command=self.tree.yview)
-        hsb = ttk.Scrollbar(self.tree_frame, orient="horizontal", command=self.tree.xview)
-        self.tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        # Add radio buttons for database types
+        self.db_type = tk.StringVar(value='sqlite')
         
-        # Grid layout for treeview and scrollbars
-        self.tree.grid(column=0, row=0, sticky='nsew')
-        vsb.grid(column=1, row=0, sticky='ns')
-        hsb.grid(column=0, row=1, sticky='ew')
+        sqlite_radio = ttk.Radiobutton(frame, text="SQLite Database", variable=self.db_type, value='sqlite')
+        sqlite_radio.pack(anchor='w', pady=5)
         
-        # Configure grid weights
-        self.tree_frame.grid_rowconfigure(0, weight=1)
-        self.tree_frame.grid_columnconfigure(0, weight=1)
+        access_radio = ttk.Radiobutton(frame, text="Microsoft Access Database", variable=self.db_type, value='access')
+        access_radio.pack(anchor='w', pady=5)
+        
+        mvo_radio = ttk.Radiobutton(frame, text="MVO Database", variable=self.db_type, value='mvo')
+        mvo_radio.pack(anchor='w', pady=5)
+
+        # Add description labels
+        desc_frame = ttk.Frame(frame)
+        desc_frame.pack(fill='x', pady=10)
+
+        self.desc_label = ttk.Label(desc_frame, text="", wraplength=350)
+        self.desc_label.pack()
+
+        # Update description when selection changes
+        self.db_type.trace('w', self.update_description)
+        self.update_description()  # Initialize with SQLite description
+
+        # Add buttons
+        button_frame = ttk.Frame(frame)
+        button_frame.pack(fill='x', pady=10)
+
+        ttk.Button(button_frame, text='Create', command=lambda: self.create_selected_database(dialog)).pack(side='left', padx=5)
+        ttk.Button(button_frame, text='Cancel', command=dialog.destroy).pack(side='left', padx=5)
+
+        dialog.wait_window()
+
+    def update_description(self, *args):
+        """Update description based on selected database type"""
+        db_type = self.db_type.get()
+        if db_type == 'sqlite':
+            self.desc_label.config(text="Create a sample SQLite database with Employees and Departments tables.")
+        elif db_type == 'access':
+            self.desc_label.config(text="Create a sample Microsoft Access database with Employees and Departments tables.")
+        elif db_type == 'mvo':
+            self.desc_label.config(text="Create a sample MVO database with JSON-based storage.")
+
+    def create_selected_database(self, dialog):
+        """Create the selected sample database"""
+        try:
+            db_type = self.db_type.get()
+            
+            # Get the script path based on database type
+            script_path = {
+                'sqlite': 'create_sample_sqlite.py',
+                'access': 'create_sample_access.py',
+                'mvo': 'create_sample_mvo.py'
+            }.get(db_type)
+
+            if not script_path:
+                raise ValueError("Invalid database type selected")
+
+            # Run the appropriate script
+            import subprocess
+            subprocess.run(['python', script_path])
+            
+            messagebox.showinfo('Success', f'Sample {db_type} database created successfully!')
+            dialog.destroy()
+
+        except Exception as e:
+            messagebox.showerror('Error', f'Failed to create sample database: {str(e)}')
+            dialog.destroy()
 
         # Status bar
         self.status_bar = ttk.Label(self.root, text='Ready', relief=tk.SUNKEN, anchor=tk.W)
@@ -98,6 +159,7 @@ class SQLiteApp:
         self.root.bind('<Control-e>', lambda e: self.export_to_csv())
         self.root.bind('<Control-q>', lambda e: self.root.quit())
         self.root.bind('<F1>', lambda e: self.show_about())
+        self.root.bind('<Control-s>', lambda e: self.show_sponsors())
 
     def open_database(self):
         try:
