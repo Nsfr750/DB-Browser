@@ -146,20 +146,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **dBase**: Install `dbf` package
 - **MVO**: No additional requirements
 
-## 🖱️ Usage
-
-Run the application:
-```bash
-python main.py
-```
-
-## 📝 Documentation
-
-For detailed information, check our documentation:
-- [User Guide](docs/index.md)
-- [Development Guide](docs/development.md)
-- [Changelog](CHANGELOG.md)
-
 ## 🔧 Development
 
 ### Running Tests
