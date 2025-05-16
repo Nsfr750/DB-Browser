@@ -8,6 +8,7 @@ The Database Handlers module provides a unified, extensible interface for intera
 
 - SQLite (.db)
 - MySQL (network)
+- PostgreSQL (network)
 - Microsoft Access (.mdb, .accdb)
 - Multiversion Object (.mvo)
 - dBase (.dbf, .db3)
@@ -20,7 +21,16 @@ A factory method that automatically selects the appropriate database handler bas
 
 #### Parameters
 - `db_path` (optional): Path to a local database file
-- `connection_params` (optional): Dictionary of connection parameters for network databases
+- `connection_params` (optional): Dictionary of connection parameters for network databases. Format:
+  ```python
+  {
+    'type': 'mysql' or 'postgresql',
+    'host': 'hostname',
+    'user': 'username',
+    'password': 'password',
+    'database': 'database_name'
+  }
+  ```
 
 #### Returns
 An instance of a database handler with a consistent interface.
@@ -48,6 +58,65 @@ sqlite_handler.connect()
 
 # List tables
 tables = sqlite_handler.get_tables()
+
+# Get table structure
+columns = sqlite_handler.get_columns('employees')
+
+# Get data
+data = sqlite_handler.get_data('employees')
+```
+
+### Network Database Connection
+
+```python
+from database_handlers import get_database_handler
+
+# MySQL Connection
+mysql_params = {
+    'type': 'mysql',
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'password',
+    'database': 'mydb'
+}
+mysql_handler = get_database_handler(connection_params=mysql_params)
+mysql_handler.connect()
+
+# PostgreSQL Connection
+postgres_params = {
+    'type': 'postgresql',
+    'host': 'localhost',
+    'user': 'postgres',
+    'password': 'password',
+    'database': 'mydb'
+}
+postgres_handler = get_database_handler(connection_params=postgres_params)
+postgres_handler.connect()
+
+# Execute query
+result = mysql_handler.execute_query("SELECT * FROM employees WHERE salary > %s", (50000,))
+```
+
+### Error Handling
+
+```python
+try:
+    handler = get_database_handler(connection_params=params)
+    handler.connect()
+    # ... database operations ...
+finally:
+    if handler:
+        handler.close()
+```
+
+### Plugin Integration
+
+Database handlers can be extended through plugins. To create a custom database handler plugin:
+
+1. Create a new handler class that inherits from `BaseDatabasePlugin`
+2. Implement the required database handler methods
+3. Place the plugin in the `plugins/database_handlers` directory
+4. The plugin manager will automatically discover and load your handler
 
 # Execute query
 results = sqlite_handler.execute_query('SELECT * FROM employees')
