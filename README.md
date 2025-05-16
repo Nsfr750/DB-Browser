@@ -41,7 +41,7 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 
 ### Database Handler Usage
 
-The `get_database_handler()` function provides a unified interface for working with different database types. See [Database Handlers](Docs/database_handlers.md) for full documentation.
+The `get_database_handler()` function provides a unified interface for working with different database types. See [Database Handlers](docs/database_handlers.md) for full documentation.
 
 ```python
 from database_handlers import get_database_handler
@@ -97,12 +97,12 @@ For developers:
 
 For detailed documentation, see:
 
-- [Database Handlers](Docs/database_handlers.md)
-- [Sample Databases](Docs/sample_databases.md)
-- [Development Guide](Docs/development.md)
+- [Database Handlers](docs/database_handlers.md)
+- [Sample Databases](docs/sample_databases.md)
+- [Development Guide](docs/development.md)
 - [Change Log](CHANGELOG.md)
 - [Online Documentation](https://github.com/Nsfr750/DB-Browser/blob/main/docs/index.md)
-- [Plugin System Guide](Docs/plugin_system.md)
+- [Plugin System Guide](docs/plugin_system.md)
 
 ## 📝 License
 
@@ -124,19 +124,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
    - Verify database server is running
    - Check connection parameters
    - Ensure proper permissions
-   - See [Troubleshooting Guide](Docs/database_handlers.md#troubleshooting)
+   - See [Troubleshooting Guide](docs/database_handlers.md#troubleshooting)
 
 2. File Access Issues
    - Check file permissions
    - Verify file path
    - Ensure file exists
-   - See [File Access Guide](Docs/database_handlers.md#file-access)
+   - See [File Access Guide](docs/database_handlers.md#file-access)
 
 3. Query Errors
    - Check SQL syntax
    - Verify table and column names
    - Check data types
-   - See [Query Guide](Docs/database_handlers.md#query-execution)
+   - See [Query Guide](docs/database_handlers.md#query-execution)
    ```
 
 ## Additional Requirements for Specific Database Types
