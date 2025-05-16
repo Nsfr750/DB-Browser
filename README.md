@@ -109,11 +109,11 @@ flake8 .
 
 ## 📊 Version
 
-- **Current Version**: 1.2.0-beta
+- **Current Version**: 1.3.1-beta
 - **Version Management**: Semantic Versioning 2.0.0
   - Major: 1
-  - Minor: 2
-  - Patch: 0
+  - Minor: 3
+  - Patch: 1
   - Qualifier: beta
 
 ## 🤝 Contributing
