@@ -102,6 +102,7 @@ For detailed documentation, see:
 - [Development Guide](Docs/development.md)
 - [Change Log](CHANGELOG.md)
 - [Online Documentation](https://github.com/Nsfr750/DB-Browser/blob/main/docs/index.md)
+- [Plugin System Guide](Docs/plugin_system.md)
 
 ## 📝 License
 
