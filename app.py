@@ -67,8 +67,8 @@ class SQLiteApp:
         help_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label='Help', menu=help_menu)
         help_menu.add_command(label='About', command=self.show_about)
-        help_menu.add_command(label='Show Help', command=self.show_help, accelerator='(Ctrl+H')
-        help_menu.add_command(label='Sponsors', command=self.show_sponsors, accelerator='(Ctrl+S')
+        help_menu.add_command(label='Show Help', command=self.show_help, accelerator='Ctrl+H')
+        help_menu.add_command(label='Sponsors', command=self.show_sponsors, accelerator='Ctrl+S')
 
     def show_sponsors(self):
         if self.sponsor:
