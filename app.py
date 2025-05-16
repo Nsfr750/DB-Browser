@@ -161,7 +161,7 @@ class SQLiteApp:
             import subprocess
             subprocess.run(['python', script_path])
             
-            messagebox.showinfo('Success', f'Sample {db_type} database created successfully!')
+            messagebox.showinfo('Success', f'Sample {db_type} database created successfully!\nConnection details saved in sample_databases directory.')
             dialog.destroy()
 
         except Exception as e:
