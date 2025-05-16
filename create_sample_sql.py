@@ -28,9 +28,9 @@ departments_data = [
 try:
     # Connect to PostgreSQL
     conn = psycopg2.connect(
-        dbname="postgres",
-        user="postgres",
-        password="postgres",
+        dbname="mysql",
+        user="mysql",
+        password="mysql",
         host="localhost",
         port="5432"
     )
@@ -45,8 +45,8 @@ try:
     conn.close()
     conn = psycopg2.connect(
         dbname="sample_db",
-        user="postgres",
-        password="postgres",
+        user="mysql",
+        password="mysql",
         host="localhost",
         port="5432"
     )
@@ -86,10 +86,10 @@ try:
 
     # Create a JSON file with connection details
     connection_info = {
-        "type": "postgresql",
+        "type": "mysql",
         "host": "localhost",
-        "user": "postgres",
-        "password": "postgres",
+        "user": "mysql",
+        "password": "mysql",
         "database": "sample_db"
     }
     
