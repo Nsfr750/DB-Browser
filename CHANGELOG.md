@@ -2,7 +2,48 @@
 
 ## [Unreleased]
 
-## [1.3.1-beta.1] - 2025-05-16
+## [1.3.1-beta.1](https://github.com/Nsfr750/DB-Browser/compare/1.3.0...1.3.1-beta.1) (2025-05-16)
+
+### Features
+
+- **Help System**: Added comprehensive help system with searchable documentation
+- **Keyboard Shortcuts**: Added Ctrl+H for help and Ctrl+S for sponsors
+- **Documentation**: Updated documentation structure
+- **Error Handling**: Improved error handling for database connections
+- **Logging**: Added comprehensive logging system
+- **UI**: Improved user interface consistency
+
+### Bug Fixes
+
+- **MySQL**: Fixed connection timeout issues
+- **SQLite**: Fixed file path handling
+- **Access**: Fixed driver detection
+- **dBase**: Fixed field type conversion
+
+### Breaking Changes
+
+- **API**: Changed database handler interface
+- **Configuration**: Updated configuration file format
+
+### Dependencies
+
+- **mysqlclient**: Updated to 2.2.1
+- **psycopg2-binary**: Added for PostgreSQL support
+- **pyodbc**: Updated to 4.0.39
+
+### Documentation
+
+- **README**: Updated with new features
+- **API**: Updated documentation
+- **Installation**: Added PostgreSQL setup guide
+
+### Internal
+
+- **Testing**: Added PostgreSQL tests
+- **Linting**: Updated linting rules
+- **Build**: Updated build configuration
+
+## [1.3.0] (2025-05-15)
 
 ### Added
 - Sample database creation tool
@@ -47,11 +88,6 @@
 - Refactored database handler initialization
 - Updated plugin manager to accept root window parameter
 - Modified SQLiteApp to handle plugin manager integration
-
-All notable changes to the Database Browser project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.2.0-beta] - 2025-05-15 🚀
 
