@@ -7,22 +7,45 @@ DB-Browser/
 │
 ├── docs/                   # Documentation files
 ├── tests/                  # Unit and integration tests
-│
-├── main.py                 # Application entry point
-├── app.py                  # Main application logic
-├── version.py              # Version management
-├── about.py                # About dialog implementation
-├── sponsor.py              # Sponsor system implementation
+├── plugins/                # Plugin system
+│   ├── database_handlers/  # Database handler plugins
+│   ├── ui_plugins/        # UI component plugins
+│   └── export_plugins/    # Data export plugins
 ├── sample_databases/       # Sample database creation scripts
 │   ├── create_sample_sqlite.py
 │   ├── create_sample_access.py
+│   ├── create_sample_mysql.py
+│   ├── create_sample_postgres.py
 │   └── create_sample_mvo.py
 │
-├── mysql_db.py             # MySQL database handler
-├── mvo_db.py               # MVO database handler
-├── postgres_db.py          # PostgreSQL database handler
-│
-└── requirements.txt        # Project dependencies
+├── src/                    # Source code
+│   ├── app/               # Main application code
+│   │   ├── __init__.py
+│   │   ├── main.py        # Application entry point
+│   │   └── ui/           # UI components
+│   │       ├── __init__.py
+│   │       ├── main_window.py
+│   │       ├── table_view.py
+│   │       └── query_editor.py
+│   ├── database_handlers/ # Database handler implementations
+│   │   ├── __init__.py
+│   │   ├── sqlite_handler.py
+│   │   ├── mysql_handler.py
+│   │   ├── postgres_handler.py
+│   │   └── access_handler.py
+│   ├── plugins/           # Core plugin system
+│   │   ├── __init__.py
+│   │   └── base_plugin.py
+│   └── utils/             # Utility functions
+│       ├── __init__.py
+│       └── helpers.py
+├── tests/                  # Unit and integration tests
+│   ├── __init__.py
+│   ├── test_database_handlers.py
+│   ├── test_ui.py
+│   └── test_plugins.py
+├── requirements.txt        # Project dependencies
+└── requirements-dev.txt    # Development dependencies
 ```
 
 ## Development Environment Setup
@@ -35,9 +58,168 @@ DB-Browser/
    ```
 3. Install development dependencies
    ```bash
-   pip install -r requirements.txt
-   pip install pytest
+   pip install -r requirements-dev.txt
    ```
+
+## Development Guidelines
+
+### Code Style
+
+- Follow PEP 8 guidelines
+- Use type hints for all functions and methods
+- Write comprehensive docstrings using Google style
+- Use meaningful variable and function names
+- Keep lines under 100 characters
+- Use snake_case for variables and functions
+- Use PascalCase for classes
+- Use UPPER_CASE for constants
+
+### Project Structure
+
+1. All source code should be in the `src` directory
+2. Tests should be in the `tests` directory
+3. Plugins should be in the appropriate subdirectory under `plugins`
+4. Sample database scripts should be in `sample_databases`
+5. Documentation should be in `docs`
+
+### Database Handler Development
+
+#### Requirements
+
+1. Inherit from `BaseDatabasePlugin`
+2. Implement all required interface methods
+3. Add appropriate error handling
+4. Include unit tests
+5. Document all methods and parameters
+
+#### Implementation Guidelines
+
+1. Use connection pooling for server-based databases
+2. Implement proper error handling
+3. Use parameterized queries to prevent SQL injection
+4. Add timeout handling
+5. Implement proper cleanup in finally blocks
+
+#### Testing
+
+1. Test connection handling
+2. Test table listing
+3. Test query execution
+4. Test error conditions
+5. Test performance with large datasets
+6. Test data export functionality
+
+### Plugin Development
+
+#### Plugin Types
+
+1. Database Handlers
+   - Handle specific database types
+   - Implement database operations
+   - Manage connections
+
+2. UI Components
+   - Add new interface elements
+   - Extend existing UI
+   - Implement custom controls
+
+3. Export Plugins
+   - Add new data export formats
+   - Implement data transformation
+   - Handle file formats
+
+#### Plugin Structure
+
+```python
+from plugins.base_plugin import BasePlugin
+
+class YourPlugin(BasePlugin):
+    def __init__(self):
+        super().__init__()
+        self.name = "Your Plugin Name"
+        self.description = "Plugin description"
+        self.version = "1.0"
+
+    def initialize(self, root):
+        """Initialize the plugin"""
+        pass
+
+    def cleanup(self):
+        """Cleanup resources"""
+        pass
+
+    # Implement plugin-specific methods
+```
+
+#### Plugin Registration
+
+1. Place plugin files in the appropriate directory:
+   - Database handlers: `plugins/database_handlers/`
+   - UI components: `plugins/ui_plugins/`
+   - Export plugins: `plugins/export_plugins/`
+
+2. The plugin manager will automatically discover and load your plugin
+
+### Error Handling
+
+1. Use specific exception types
+2. Provide meaningful error messages
+3. Implement proper cleanup in finally blocks
+4. Log errors appropriately
+5. Handle connection timeouts
+6. Prevent resource leaks
+
+### Performance Considerations
+
+1. Use connection pooling for server-based databases
+2. Implement proper caching
+3. Use batch operations for bulk data
+4. Optimize queries
+5. Monitor memory usage
+6. Implement proper error handling
+
+### Security Best Practices
+
+1. Never store passwords in code
+2. Use environment variables for sensitive data
+3. Implement proper error handling
+4. Use prepared statements
+5. Implement connection timeouts
+6. Use appropriate character encoding
+7. Implement proper cleanup
+8. Validate all inputs
+
+### Testing Guidelines
+
+1. Write unit tests for all components
+2. Test error conditions
+3. Test edge cases
+4. Test performance
+5. Test integration points
+6. Test data export
+7. Test UI components
+8. Test database handlers
+9. Test plugins
+
+### Version Control
+
+1. Use Git for version control
+2. Create feature branches
+3. Write meaningful commit messages
+4. Use pull requests for code review
+5. Tag releases
+6. Update changelog
+
+### Documentation
+
+1. Document all public APIs
+2. Write usage examples
+3. Include error handling examples
+4. Document configuration options
+5. Keep documentation up to date
+6. Include installation instructions
+7. Document dependencies
+8. Include troubleshooting guide
 
 ## Development Guidelines
 
