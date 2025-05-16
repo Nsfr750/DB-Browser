@@ -21,7 +21,10 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - Execute SQL queries
 - Import and export data
 - Create sample databases for testing
-- Organized sample databases in dedicated directory.
+- Organized sample databases in dedicated directory
+- Plugin system for extensibility
+- Sponsor integration system
+- Cross-platform support
 
 ### Supported Databases
 - 💾 SQLite (.db)
@@ -39,6 +42,7 @@ Database Browser is a powerful, cross-platform GUI application designed to simpl
 - 🛡️ Robust error handling
 - 🌐 Cross-platform compatibility
 - 💡 Sponsor integration system
+- 🔍 Plugin system for extensibility
 - 🏷️ Version: 1.3.1-beta.1
 
 ### Database Handler Usage
@@ -49,6 +53,27 @@ The `get_database_handler()` function in `database_handlers.py` provides a unifi
 from database_handlers import get_database_handler
 
 # For file-based databases
+# For file-based databases, pass the full path to the database file
+handler = get_database_handler('path/to/database.db')
+
+# For server-based databases (MySQL, PostgreSQL), pass connection parameters
+connection_params = {
+    'type': 'mysql',
+    'host': 'localhost',
+    'user': 'username',
+    'password': 'password',
+    'database': 'dbname'
+}
+handler = get_database_handler(connection_params)
+
+# Common operations
+handler.connect()
+for table in handler.get_tables():
+    print(f"Table: {table}")
+    print("Columns:", handler.get_columns(table))
+    print("Data:", handler.get_data(table))
+
+handler.disconnect()``
 handler = get_database_handler(db_path='example.db')
 
 # For network databases
