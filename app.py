@@ -93,6 +93,12 @@ class SQLiteApp:
         
         mvo_radio = ttk.Radiobutton(frame, text="MVO Database", variable=self.db_type, value='mvo')
         mvo_radio.pack(anchor='w', pady=5)
+        
+        dbase_radio = ttk.Radiobutton(frame, text="dBase Database", variable=self.db_type, value='dbase')
+        dbase_radio.pack(anchor='w', pady=5)
+        
+        sql_radio = ttk.Radiobutton(frame, text="MySQL Database", variable=self.db_type, value='sql')
+        sql_radio.pack(anchor='w', pady=5)
 
         # Add description labels
         desc_frame = ttk.Frame(frame)
@@ -123,6 +129,10 @@ class SQLiteApp:
             self.desc_label.config(text="Create a sample Microsoft Access database with Employees and Departments tables.")
         elif db_type == 'mvo':
             self.desc_label.config(text="Create a sample MVO database with JSON-based storage.")
+        elif db_type == 'dbase':
+            self.desc_label.config(text="Create a sample dBase database with Employees and Departments tables.")
+        elif db_type == 'sql':
+            self.desc_label.config(text="Create a sample PostgreSQL database with Employees and Departments tables.")
 
     def create_selected_database(self, dialog):
         """Create the selected sample database"""
@@ -133,7 +143,9 @@ class SQLiteApp:
             script_path = {
                 'sqlite': 'create_sample_sqlite.py',
                 'access': 'create_sample_access.py',
-                'mvo': 'create_sample_mvo.py'
+                'mvo': 'create_sample_mvo.py',
+                'dbase': 'create_sample_dbase.py',
+                'sql': 'create_sample_sql.py'
             }.get(db_type)
 
             if not script_path:
